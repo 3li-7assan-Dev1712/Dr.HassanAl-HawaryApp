@@ -1,4 +1,4 @@
-package com.example.hassanal_hawary
+package com.example.hassanal_hawary.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
