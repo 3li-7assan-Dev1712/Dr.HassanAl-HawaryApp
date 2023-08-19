@@ -36,7 +36,7 @@ fun SignInScreen(
         contentAlignment = Alignment.Center
     ) {
         Button(onClick = {
-            onSignInClick
+            onSignInClick()
         }) {
             Text(text = "Sign In")
         }
