@@ -26,6 +26,7 @@ import com.example.hassanal_hawary.presentation.profile.ProfileScreen
 import com.example.hassanal_hawary.presentation.sign_in.GoogleAuthUiClient
 import com.example.hassanal_hawary.presentation.sign_in.SignInScreen
 import com.example.hassanal_hawary.presentation.sign_in.SignInViewModel
+import com.example.hassanal_hawary.presentation.splash_screen.SplashScreen
 import com.example.hassanal_hawary.ui.theme.HassanAlHawaryTheme
 import com.google.android.gms.auth.api.identity.Identity
 import kotlinx.coroutines.launch
@@ -49,17 +50,12 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    val navHost = NavHost(navController, startDestination = "sign_in") {
+                    val navHost = NavHost(navController, startDestination = "splash_screen") {
 
                         composable("sign_in") {
                             val viewModel = viewModel<SignInViewModel>()
                             val state by viewModel.state.collectAsState()
 
-                            LaunchedEffect(key1 = Unit) {
-                                if (googleAuthUiClient.getSignedInUser() != null) {
-                                    navController.navigate("profile")
-                                }
-                            }
                             val launcher = rememberLauncherForActivityResult(
                                 contract = ActivityResultContracts.StartIntentSenderForResult(),
                                 onResult = { activityResult ->
@@ -119,6 +115,21 @@ class MainActivity : ComponentActivity() {
 
                                 }
                             )
+                        }
+                        composable("splash_screen") {
+                            SplashScreen {
+                                /* LaunchedEffect(key1 = Unit) {
+                                     if (googleAuthUiClient.getSignedInUser() != null) {
+                                         navController.navigate("profile")
+                                     }
+                                 }*/
+
+                                if (googleAuthUiClient.getSignedInUser() != null)
+                                    navController.navigate("profile")
+                                else
+                                    navController.navigate("sign_in")
+                                // should navigate to the main screen composeable
+                            }
                         }
 
                     }
