@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Hassan Al-Hawary</string>
     <string name="web_client_id">513198743571-31uj7npmq7m5ammn6bdeoiirglgc996c.apps.googleusercontent.com</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="login_question">already have an account?</string>
+    <string name="register_question">don\'t have an account?</string>
+    <string name="register_using">register using…</string>
+    <string name="login_using">login using…</string>
 </resources>

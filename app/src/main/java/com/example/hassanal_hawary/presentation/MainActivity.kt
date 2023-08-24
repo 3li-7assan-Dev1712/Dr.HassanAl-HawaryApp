@@ -86,6 +86,13 @@ class MainActivity : ComponentActivity() {
 
                             SignInScreen(
                                 state = state,
+                                onRegisterClick = {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Navigate to register screen",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                },
                                 onSignInClick = {
                                     lifecycleScope.launch {
                                         val signInIntentSender = googleAuthUiClient.signIn()
