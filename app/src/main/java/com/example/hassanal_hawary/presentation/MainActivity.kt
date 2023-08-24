@@ -104,6 +104,13 @@ class MainActivity : ComponentActivity() {
                                     }
 
 
+                                },
+                                onLoginRegisterElementClick = {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Login via $it account",
+                                        Toast.LENGTH_LONG
+                                    ).show()
                                 })
                         }
                         composable("profile") {
