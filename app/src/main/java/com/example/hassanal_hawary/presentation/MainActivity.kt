@@ -8,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -17,12 +18,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.hassanal_hawary.presentation.profile.ProfileScreen
+import com.example.hassanal_hawary.presentation.register.RegisterScreen
 import com.example.hassanal_hawary.presentation.sign_in.GoogleAuthUiClient
 import com.example.hassanal_hawary.presentation.sign_in.SignInScreen
 import com.example.hassanal_hawary.presentation.sign_in.SignInViewModel
@@ -92,6 +95,7 @@ class MainActivity : ComponentActivity() {
                                         "Navigate to register screen",
                                         Toast.LENGTH_LONG
                                     ).show()
+                                    navController.navigate("register")
                                 },
                                 onSignInClick = {
                                     lifecycleScope.launch {
@@ -143,6 +147,20 @@ class MainActivity : ComponentActivity() {
                                 else
                                     navController.navigate("sign_in")
                                 // should navigate to the main screen composeable
+                            }
+                        }
+
+                        composable("register") {
+                            RegisterScreen(
+                                modifier = Modifier.fillMaxSize().padding(15.dp),
+                                onLoginClick = {
+                                         navController.navigate("sign_in")
+                                },
+                                onLoginRegisterElementClick = {
+
+                                }
+                            ) {
+
                             }
                         }
 

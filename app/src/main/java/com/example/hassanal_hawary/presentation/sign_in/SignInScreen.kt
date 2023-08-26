@@ -104,9 +104,7 @@ fun EmailPasswordSection() {
         mutableStateOf("")
     }
 
-    Column(
-        modifier = Modifier.padding(horizontal = 15.dp)
-    ) {
+    Column {
         TextField(value = emailState.value, onValueChange = {
             emailState.value = it
         }, modifier = Modifier.fillMaxWidth(), singleLine = true, leadingIcon = {
@@ -164,13 +162,13 @@ fun loginRegisterSection(
     ) {
 
         Text(
-            text = if (isLogin) context.getString(R.string.login_question)
+            text = if (!isLogin) context.getString(R.string.login_question)
             else context.getString(R.string.register_question)
         )
 
 
         Text(
-            text = if (isLogin) context.getString(R.string.login)
+            text = if (!isLogin) context.getString(R.string.login)
             else context.getString(R.string.register),
             color = MaterialTheme.colorScheme.tertiary,
             modifier = Modifier.clickable {
