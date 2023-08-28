@@ -17,12 +17,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -61,39 +60,47 @@ fun MainScreen(
                     modifier = Modifier.padding(8.dp)
 
                 ) {
-                    MainScreenGridItem(programType = program)
+                    MainScreenGridItem(
+                        programType = program,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(156.dp)
+                            .background(
+                                color = Blue40,
+                                shape = RoundedCornerShape(size = 32.dp)
+                            ),
+                        contentAlignment = Alignment.BottomCenter
+
+                    )
                 }
 
             }
         }
-        BottomMenu(onItemClick = {
-            onItemClick(it)
-        })
+        BottomMenu(
+            menuItems = menusItems,
+            onItemClick = {
+                onItemClick(it)
+            })
 
 
     }
-
-
 
 
 }
 
 @Composable
 fun MainScreenGridItem(
-    programType: String
+    programType: String,
+    modifier: Modifier,
+    contentAlignment: Alignment
 ) {
     Box(
-        modifier = Modifier
-            .height(156.dp)
-            .background(
-                color = Blue40,
-                shape = RoundedCornerShape(size = 32.dp)
-            ),
-        contentAlignment = Alignment.BottomCenter
+        modifier = modifier,
+        contentAlignment = contentAlignment
     ) {
         Text(
             text = programType,
-            fontSize = 22.sp
+            style = MaterialTheme.typography.bodyMedium
         )
     }
 }
@@ -101,7 +108,18 @@ fun MainScreenGridItem(
 @Preview(widthDp = 320)
 @Composable
 fun MainScreenGridItemPreview() {
-    MainScreenGridItem(programType = "المقـــــالات")
+    MainScreenGridItem(
+        programType = "المقـــــالات",
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(156.dp)
+            .background(
+                color = Blue40,
+                shape = RoundedCornerShape(size = 32.dp)
+            ),
+        contentAlignment = Alignment.BottomCenter
+
+    )
 }
 
 
@@ -113,7 +131,7 @@ fun BottomMenu(
     onItemClick: (Int) -> Unit
 ) {
 
-    var currentSelectedItem by remember {
+    var currentSelectedItem by rememberSaveable {
         mutableStateOf(initialSelectedItemIndex)
     }
 

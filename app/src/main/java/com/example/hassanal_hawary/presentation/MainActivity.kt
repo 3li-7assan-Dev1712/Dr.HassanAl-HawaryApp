@@ -9,9 +9,7 @@ import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,7 +24,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.hassanal_hawary.presentation.favorites.FavoriteScreen
 import com.example.hassanal_hawary.presentation.main_screen.MainScreen
+import com.example.hassanal_hawary.presentation.main_screen.programs
 import com.example.hassanal_hawary.presentation.profile.ProfileScreen
 import com.example.hassanal_hawary.presentation.register.RegisterScreen
 import com.example.hassanal_hawary.presentation.sign_in.GoogleAuthUiClient
@@ -159,7 +159,7 @@ class MainActivity : ComponentActivity() {
                                     .fillMaxSize()
                                     .padding(15.dp),
                                 onLoginClick = {
-                                         navController.navigate("sign_in")
+                                    navController.navigate("sign_in")
                                 },
                                 onLoginRegisterElementClick = {
 
@@ -174,9 +174,26 @@ class MainActivity : ComponentActivity() {
                             MainScreen(
                                 modifier = Modifier.fillMaxSize(),
                                 navController = navController,
+                                programs = programs,
                                 onItemClick = {
-
+                                    when(it) {
+                                        1 -> {
+                                            navController.navigate("main_screen")
+                                        }
+                                        3 -> {
+                                            navController.navigate("favorites")
+                                        }
+                                    }
                                 }
+                            )
+                        }
+                        composable("favorites") {
+                            FavoriteScreen(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(
+                                        horizontal = 15.dp
+                                    )
                             )
                         }
 
