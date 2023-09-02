@@ -27,9 +27,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.hassanal_hawary.ui.theme.Blue40
 
@@ -43,46 +43,34 @@ fun MainScreen(
 ) {
 
 
-    Column(
+    LazyVerticalGrid(
         modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
+        columns = GridCells.Fixed(2),
+        contentPadding = PaddingValues(
+            start = 7.5.dp
+        )
     ) {
-        LazyVerticalGrid(
-            modifier = Modifier.weight(1f),
-            columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(
-                start = 7.5.dp
-            )
-        ) {
-            items(count = programs.size) {
-                val program = programs[it]
-                Box(
-                    modifier = Modifier.padding(8.dp)
+        items(count = programs.size) {
+            val program = programs[it]
+            Box(
+                modifier = Modifier.padding(8.dp)
 
-                ) {
-                    MainScreenGridItem(
-                        programType = program,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(156.dp)
-                            .background(
-                                color = Blue40,
-                                shape = RoundedCornerShape(size = 32.dp)
-                            ),
-                        contentAlignment = Alignment.BottomCenter
+            ) {
+                MainScreenGridItem(
+                    programType = program,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(156.dp)
+                        .background(
+                            color = Blue40,
+                            shape = RoundedCornerShape(size = 32.dp)
+                        ),
+                    contentAlignment = Alignment.BottomCenter
 
-                    )
-                }
-
+                )
             }
+
         }
-        BottomMenu(
-            menuItems = menusItems,
-            onItemClick = {
-                onItemClick(it)
-            })
-
-
     }
 
 
@@ -95,7 +83,7 @@ fun MainScreenGridItem(
     contentAlignment: Alignment
 ) {
     Box(
-        modifier = modifier,
+        modifier = modifier.padding(vertical = 30.dp),
         contentAlignment = contentAlignment
     ) {
         Text(
