@@ -7,6 +7,7 @@
     <string name="register_question">don\'t have an account?</string>
     <string name="register_using">register using…</string>
     <string name="login_using">login using…</string>
+    <string name="facebook_app_id" translatable="false">1962082974176203</string>
     <string name="favorite_articles">Favorite Articles</string>
     <string name="favorite_lectures">Favorite Lectures</string>
 </resources>

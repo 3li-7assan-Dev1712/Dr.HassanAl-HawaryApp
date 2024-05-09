@@ -22,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -113,6 +112,7 @@ class MainActivity : ComponentActivity() {
                                                 ).show()
                                                 navController.navigate("register")
                                             },
+                                            // here there should be a progress bar
                                             onSignInClick = {
                                                 lifecycleScope.launch {
                                                     val signInIntentSender =
@@ -168,6 +168,10 @@ class MainActivity : ComponentActivity() {
                                         }
                                     }
 
+                                    /*
+                                    Hey Muhammed this function will display the image
+                                    of Dr. Hassan app
+                                     */
                                     composable("register") {
                                         RegisterScreen(
                                             modifier = Modifier

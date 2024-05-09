@@ -41,6 +41,12 @@ class GoogleAuthUiClient(
         return result?.pendingIntent?.intentSender
     }
 
+    /**
+     * This function will be used for providing the acutal intent
+     * for start signing to the application
+     *
+     * I will be focused on my goal to accomplish it!
+     */
     suspend fun signInWithIntent(intent: Intent): SignInResult {
         val credential = onTapClient.getSignInCredentialFromIntent(intent)
         val googleIdToken = credential.googleIdToken

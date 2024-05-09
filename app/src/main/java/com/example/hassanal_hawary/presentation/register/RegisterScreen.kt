@@ -23,6 +23,12 @@ import com.example.hassanal_hawary.presentation.sign_in.EmailPasswordSection
 import com.example.hassanal_hawary.presentation.sign_in.LoginRegisterProvidersSection
 import com.example.hassanal_hawary.presentation.sign_in.loginRegisterSection
 
+/**
+ * This function will display the registration screen for taking
+ * some data from the user (name + email) and then navigate to the
+ * main screen where they can see the videos and audios of the Dr. Hassan
+ * Al-Hwary
+ */
 @Composable
 fun RegisterScreen(
     modifier: Modifier = Modifier,
