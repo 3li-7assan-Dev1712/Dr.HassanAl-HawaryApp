@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -23,12 +22,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,8 +44,18 @@ fun SignInScreen(
     state: SignInState,
     onSignInClick: () -> Unit,
     onRegisterClick: () -> Unit,
-    onLoginRegisterElementClick: (LoginRegisterProviderElement) -> Unit
+    onLoginRegisterElementClick: (LoginRegisterProviderElement) -> Unit,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit
 ) {
+
+    /*val emailState = rememberSaveable {
+        mutableStateOf("")
+    }
+    val passwordState = rememberSaveable {
+        mutableStateOf("")
+    }
+    */
     val context = LocalContext.current
     LaunchedEffect(key1 = state.errorMessage) {
         state.errorMessage?.let { error ->
@@ -66,7 +74,16 @@ fun SignInScreen(
 
         Spacer(modifier = Modifier.weight(0.5f))
 
-        EmailPasswordSection()
+        EmailPasswordSection(
+            email = state.enteredEmail,
+            password = state.enteredPassword,
+            onEmailChange = { enteredEmail ->
+                onEmailChange(enteredEmail)
+            },
+            onPasswordChange = { enteredPassword ->
+                onPasswordChange(enteredPassword)
+            }
+        )
 
         Spacer(modifier = Modifier.height(32.dp))
 
@@ -97,17 +114,17 @@ fun SignInScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EmailPasswordSection() {
-    val emailState = rememberSaveable {
-        mutableStateOf("")
-    }
-    val passwordState = rememberSaveable {
-        mutableStateOf("")
-    }
+fun EmailPasswordSection(
+    email: String,
+    password: String,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit
+) {
+
 
     Column {
-        TextField(value = emailState.value, onValueChange = {
-            emailState.value = it
+        OutlinedTextField(value = email, onValueChange = {
+            onEmailChange(it)
         }, modifier = Modifier.fillMaxWidth(), singleLine = true, leadingIcon = {
             Icon(
                 imageVector = Icons.Default.Email, contentDescription = "Email Section"
@@ -121,8 +138,8 @@ fun EmailPasswordSection() {
         )
         Spacer(modifier = Modifier.height(32.dp))
 
-        TextField(value = passwordState.value, onValueChange = {
-            passwordState.value = it
+        OutlinedTextField(value = password, onValueChange = {
+            onPasswordChange(it)
         }, modifier = Modifier.fillMaxWidth(), singleLine = true, leadingIcon = {
             Icon(
                 imageVector = Icons.Default.Lock, contentDescription = "Password"
@@ -147,6 +164,12 @@ fun SignInScreenPreview() {
         },
         onLoginRegisterElementClick = {
 
+        },
+        onEmailChange = {
+
+        },
+        onPasswordChange = {
+
         })
 }
 
@@ -159,7 +182,7 @@ fun loginRegisterSection(
 
 ) {
     Row(
-        modifier = Modifier, horizontalArrangement = Arrangement.SpaceAround
+        modifier = modifier, horizontalArrangement = Arrangement.SpaceAround
     ) {
 
         Text(
@@ -223,9 +246,11 @@ fun LoginRegisterProvidersSection(
 
         )
 
-        LoginRegisterProviderElements(onElementClick = {
-            onElementClick(it)
-        })
+        LoginRegisterProviderElements(
+            modifier = Modifier.fillMaxWidth(),
+            onElementClick = {
+                onElementClick(it)
+            })
 
     }
 
@@ -236,38 +261,19 @@ fun LoginRegisterProviderElements(
     modifier: Modifier = Modifier,
     onElementClick: (LoginRegisterProviderElement) -> Unit
 ) {
-    Row(
+    Box(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-
+        contentAlignment = Alignment.Center
     ) {
-
         ProviderElement(
             loginRegisterProviderElement = LoginRegisterProviderElement.GoogleElement,
-            imageRes = R.drawable.bankak_logo,
+            imageRes = com.google.android.gms.base.R.drawable.googleg_standard_color_18,
             onElementClick = {
                 onElementClick(it)
             }
         )
-        Spacer(modifier = Modifier.width(8.dp))
-        ProviderElement(
-            loginRegisterProviderElement = LoginRegisterProviderElement.FacebookElement,
-            imageRes = R.drawable.bankak_logo,
-            onElementClick = {
-                onElementClick(it)
-            }
-        )
-        Spacer(modifier = Modifier.width(8.dp))
-        ProviderElement(
-            loginRegisterProviderElement = LoginRegisterProviderElement.TelegramElement,
-            imageRes = R.drawable.bankak_logo,
-            onElementClick = {
-                onElementClick(it)
-            }
-        )
-
     }
+
 }
 
 @Composable

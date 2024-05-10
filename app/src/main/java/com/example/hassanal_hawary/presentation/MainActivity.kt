@@ -98,8 +98,27 @@ class MainActivity : ComponentActivity() {
                                                 navController.navigate(
                                                     "profile"
                                                 )
+                                                Log.d("MainActivity", "onCreate: going to reset ViewModel")
                                                 viewModel.resetState()
                                             }
+                                        }
+                                        LaunchedEffect(key1 = state.enterValidEmailMsg) {
+                                            if (state.enterValidEmailMsg.isBlank()) return@LaunchedEffect
+                                            Toast.makeText(
+                                                applicationContext,
+                                                state.enterValidEmailMsg,
+                                                Toast.LENGTH_LONG
+                                            ).show()
+
+
+                                        }
+                                        LaunchedEffect(key1 = state.enterValidPassowrdMsg) {
+                                            if (state.enterValidPassowrdMsg.isBlank()) return@LaunchedEffect
+                                            Toast.makeText(
+                                                applicationContext,
+                                                state.enterValidPassowrdMsg,
+                                                Toast.LENGTH_LONG
+                                            ).show()
                                         }
 
                                         SignInScreen(
@@ -114,6 +133,9 @@ class MainActivity : ComponentActivity() {
                                             },
                                             // here there should be a progress bar
                                             onSignInClick = {
+                                                viewModel.userClickSignInBtn()
+                                            },
+                                            onLoginRegisterElementClick = {
                                                 lifecycleScope.launch {
                                                     val signInIntentSender =
                                                         googleAuthUiClient.signIn()
@@ -123,16 +145,14 @@ class MainActivity : ComponentActivity() {
                                                         ).build()
                                                     )
                                                 }
-
-
                                             },
-                                            onLoginRegisterElementClick = {
-                                                Toast.makeText(
-                                                    applicationContext,
-                                                    "Login via $it account",
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            })
+                                            onEmailChange = {
+                                                viewModel.emailChanged(it)
+                                            },
+                                            onPasswordChange = {
+                                                viewModel.passwordChanged(it)
+                                            }
+                                        )
                                     }
                                     composable("profile") {
                                         ProfileScreen(

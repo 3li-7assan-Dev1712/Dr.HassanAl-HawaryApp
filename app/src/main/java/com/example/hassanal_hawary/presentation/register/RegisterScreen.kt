@@ -46,7 +46,15 @@ fun RegisterScreen(
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        EmailPasswordSection()
+        EmailPasswordSection(
+            email = "",
+            password = "",
+            onEmailChange = {
+
+        },
+            onPasswordChange = {
+
+            })
 
         Spacer(modifier = Modifier.height(32.dp))
 
