@@ -69,8 +69,8 @@ class MainActivity : ComponentActivity() {
                                 NavHost(navController, startDestination = "splash_screen") {
 
                                     composable("sign_in") {
-                                        val viewModel = viewModel<SignInViewModel>()
-                                        val state by viewModel.state.collectAsState()
+                                        val signInViewModel = viewModel<SignInViewModel>()
+                                        val state by signInViewModel.state.collectAsState()
 
                                         val launcher = rememberLauncherForActivityResult(
                                             contract = ActivityResultContracts.StartIntentSenderForResult(),
@@ -82,7 +82,7 @@ class MainActivity : ComponentActivity() {
                                                                 intent = activityResult.data
                                                                     ?: return@launch
                                                             )
-                                                        viewModel.onSignInResult(signInResult)
+                                                        signInViewModel.onSignInResult(signInResult)
                                                     }
                                                 }
                                             }
@@ -95,12 +95,13 @@ class MainActivity : ComponentActivity() {
                                                     "Sign in successful",
                                                     Toast.LENGTH_LONG
                                                 ).show()
-                                                viewModel.hideProgressBar()
+                                                signInViewModel.hideProgressBar()
                                                 navController.navigate(
-                                                    "main_screen"
+                                                    "profile"
                                                 )
+                                                viewModel.newNavigation("profile")
                                                 Log.d("MainActivity", "onCreate: going to reset ViewModel")
-                                                viewModel.resetState()
+                                                signInViewModel.resetState()
                                             }
                                         }
                                         LaunchedEffect(key1 = state.enterValidEmailMsg) {
@@ -136,10 +137,10 @@ class MainActivity : ComponentActivity() {
                                             onSignInClick = {
                                                 // show progress bar
 
-                                                viewModel.userClickSignInBtn()
+                                                signInViewModel.userClickSignInBtn()
                                             },
                                             onLoginRegisterElementClick = {
-                                                viewModel.showProgressBar()
+                                                signInViewModel.showProgressBar()
                                                 lifecycleScope.launch {
                                                     val signInIntentSender =
                                                         googleAuthUiClient.signIn()
@@ -151,10 +152,10 @@ class MainActivity : ComponentActivity() {
                                                 }
                                             },
                                             onEmailChange = {
-                                                viewModel.emailChanged(it)
+                                                signInViewModel.emailChanged(it)
                                             },
                                             onPasswordChange = {
-                                                viewModel.passwordChanged(it)
+                                                signInViewModel.passwordChanged(it)
                                             }
                                         )
                                     }
@@ -219,8 +220,8 @@ class MainActivity : ComponentActivity() {
                                             modifier = Modifier.fillMaxSize(),
                                             navController = navController,
                                             programs = programs,
-                                            onItemClick = {
-
+                                            onItemClick = { itemIndex ->
+                                                viewModel.userClickItem(itemIndex)
                                             }
                                         )
                                     }

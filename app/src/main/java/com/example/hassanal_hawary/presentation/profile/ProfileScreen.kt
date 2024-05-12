@@ -1,5 +1,6 @@
 package com.example.hassanal_hawary.presentation.profile
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,10 +16,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.ImageLoader
+import coil.compose.AsyncImage
 import com.example.hassanal_hawary.presentation.sign_in.UserData
+import com.google.android.gms.common.internal.ImagesContract
 
 @Composable
 fun ProfileScreen(
@@ -48,11 +54,18 @@ fun ProfileScreen(
                 contentAlignment = Alignment.Center,
 
             ) {
-                Text(
+                // show user image 
+               /* Text(
                     text = "${userData.username.get(0)}" ,
                     fontSize = 45.sp,
                     fontWeight = FontWeight.Bold
+                    )*/
+                if (!userData.userProfilePictureUrl.isNullOrBlank()) {
+                    AsyncImage(
+                        model =userData.userProfilePictureUrl,
+                        contentDescription = "Profile picture",
                     )
+                }
             }
             Text(
                 text = userData.username,
@@ -60,7 +73,8 @@ fun ProfileScreen(
                 fontWeight = FontWeight.SemiBold
             )
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.weight(1f))
+        
         Button(onClick = {
             onSignOutClick()
         }) {

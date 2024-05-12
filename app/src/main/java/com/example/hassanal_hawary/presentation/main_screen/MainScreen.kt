@@ -27,7 +27,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -67,7 +66,9 @@ fun MainScreen(
                         ),
                     contentAlignment = Alignment.BottomCenter
 
-                )
+                ) { itemIndex ->
+                    onItemClick(itemIndex)
+                }
             }
 
         }
@@ -80,10 +81,16 @@ fun MainScreen(
 fun MainScreenGridItem(
     programType: String,
     modifier: Modifier,
-    contentAlignment: Alignment
+    contentAlignment: Alignment,
+    gridItemIndex: Int = 0,
+    onGridItemClick: (Int) -> Unit
 ) {
     Box(
-        modifier = modifier.padding(vertical = 30.dp),
+        modifier = modifier
+            .padding(vertical = 30.dp)
+            .clickable {
+                onGridItemClick(gridItemIndex)
+            },
         contentAlignment = contentAlignment
     ) {
         Text(
@@ -107,7 +114,9 @@ fun MainScreenGridItemPreview() {
             ),
         contentAlignment = Alignment.BottomCenter
 
-    )
+    ) {
+
+    }
 }
 
 

@@ -58,6 +58,9 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    fun userClickItem(itemIndex: Int) {
+
+    }
     fun newNavigation(rout: String) {
         when (rout) {
             "sign_in" -> {
