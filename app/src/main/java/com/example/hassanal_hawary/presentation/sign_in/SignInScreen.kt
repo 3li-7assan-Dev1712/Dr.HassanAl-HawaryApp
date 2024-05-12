@@ -14,27 +14,38 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.hassanal_hawary.R
 import com.example.hassanal_hawary.common.LoginRegisterProviderElement
 
@@ -72,6 +83,14 @@ fun SignInScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
+        if (state.showSignInProgressBar) {
+            LinearProgressIndicator(
+                modifier = Modifier.fillMaxWidth(),
+            )
+
+            // surfaceVariant
+        }
+
         Spacer(modifier = Modifier.weight(0.5f))
 
         EmailPasswordSection(
@@ -104,10 +123,18 @@ fun SignInScreen(
             }
         )
 
-        Button(onClick = {
-            onSignInClick()
-        }) {
-            Text(text = "Sign In")
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(
+                    shape = RectangleShape,
+
+                    ),
+            onClick =
+            {
+                onSignInClick()
+            }) {
+            Text(text = context.getString(R.string.login))
         }
     }
 }
@@ -131,7 +158,7 @@ fun EmailPasswordSection(
             )
         }, label = {
             Text(
-                text = "البريد الإلكتروني"
+                text = LocalContext.current.getString(R.string.enter_email)
             )
         }
 
@@ -146,7 +173,7 @@ fun EmailPasswordSection(
             )
         }, label = {
             Text(
-                text = "كلمة السر"
+                text = LocalContext.current.getString(R.string.enter_password)
             )
         })
     }
@@ -182,7 +209,7 @@ fun loginRegisterSection(
 
 ) {
     Row(
-        modifier = modifier, horizontalArrangement = Arrangement.SpaceAround
+        modifier = modifier, horizontalArrangement = Arrangement.Center
     ) {
 
         Text(
@@ -191,13 +218,21 @@ fun loginRegisterSection(
         )
 
 
+
+        Spacer(modifier = Modifier.width(8.dp))
+
         Text(
             text = if (!isLogin) context.getString(R.string.login)
             else context.getString(R.string.register),
-            color = MaterialTheme.colorScheme.tertiary,
             modifier = Modifier.clickable {
                 onLoginRegisterClick()
-            }
+            },
+            style = TextStyle(
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.tertiary,
+                fontSize = 18.sp
+            )
+
         )
     }
 }

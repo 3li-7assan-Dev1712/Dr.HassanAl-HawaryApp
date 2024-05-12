@@ -17,8 +17,8 @@ data class MenuItem(
 val menusItems = listOf(
     MenuItem(Icons.Default.Home, "Home Screen"),
     MenuItem(Icons.Default.Search, "Search"),
-    MenuItem(Icons.Default.Email, "Messages"),
-    MenuItem(Icons.Default.Star, "Favorite")
+    MenuItem(Icons.Default.Star, "Favorites"),
+    MenuItem(Icons.Default.Person, "Profile")
 )
 val programs = listOf(
     "المقــــالات",

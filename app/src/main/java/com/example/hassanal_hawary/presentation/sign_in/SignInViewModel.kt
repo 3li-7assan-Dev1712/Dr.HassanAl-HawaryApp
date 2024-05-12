@@ -44,7 +44,12 @@ class SignInViewModel(): ViewModel()
                 )
             }
         } else {
-
+            // show progress bar indicator
+            _state.update {
+                it.copy(
+                    showSignInProgressBar = true
+                )
+            }
         }
     }
 
@@ -63,5 +68,26 @@ class SignInViewModel(): ViewModel()
                 it.copy(enteredPassword = password)
             }
         }
+    }
+
+    fun showProgressBar() {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(
+                    showSignInProgressBar = true
+                )
+            }
+        }
+
+    }
+    fun hideProgressBar() {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(
+                    showSignInProgressBar = false
+                )
+            }
+        }
+
     }
 }

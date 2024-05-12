@@ -95,8 +95,9 @@ class MainActivity : ComponentActivity() {
                                                     "Sign in successful",
                                                     Toast.LENGTH_LONG
                                                 ).show()
+                                                viewModel.hideProgressBar()
                                                 navController.navigate(
-                                                    "profile"
+                                                    "main_screen"
                                                 )
                                                 Log.d("MainActivity", "onCreate: going to reset ViewModel")
                                                 viewModel.resetState()
@@ -133,9 +134,12 @@ class MainActivity : ComponentActivity() {
                                             },
                                             // here there should be a progress bar
                                             onSignInClick = {
+                                                // show progress bar
+
                                                 viewModel.userClickSignInBtn()
                                             },
                                             onLoginRegisterElementClick = {
+                                                viewModel.showProgressBar()
                                                 lifecycleScope.launch {
                                                     val signInIntentSender =
                                                         googleAuthUiClient.signIn()
@@ -237,6 +241,7 @@ class MainActivity : ComponentActivity() {
                             Log.d("MainAct", "onCreate: destination id is ${this.id}")
                             Log.d("MainAct", "onCreate: destination rout is ${this.route}")
                         }
+
                         if (viewModel.bottomBarState.value) {
                             BottomMenu(
                                 onItemClick = {
@@ -244,9 +249,12 @@ class MainActivity : ComponentActivity() {
                                         0 -> {
                                             navController.navigate("main_screen")
                                         }
+                                        2 -> {
+                                            navController.navigate("favorites")
+                                        }
 
                                         3 -> {
-                                            navController.navigate("favorites")
+                                            navController.navigate("profile")
                                         }
                                     }
                                 },

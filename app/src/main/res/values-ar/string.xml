@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">د حسن الهواري</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="register">إنشاء حساب</string>
+    <string name="name">الإسم</string>
+    <string name="enter_email">البريد الإلكتروني</string>
+    <string name="enter_password">كلمة السر</string>
+    <string name="login_question">هل لديك حساب بالفعل؟</string>
+    <string name="register_question">ليس لديك حساب؟</string>
+    <string name="register_using">إنشاء حساب بواسطة…</string>
+    <string name="login_using">تسجيل الدخول بواسطة…</string>
+    <string name="favorite_articles">المقالات المفضلة</string>
+    <string name="favorite_lectures">المحاضرات المفضلة</string>
+</resources>
