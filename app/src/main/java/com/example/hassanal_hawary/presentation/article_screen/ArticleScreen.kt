@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,7 +26,11 @@ navigate from one article to another to read and share them
 @Composable
 fun ArticleScreen() {
 
-    Column {
+    Column (
+        modifier = Modifier.fillMaxSize()
+    ){
+
+        // title text
         Text(
             text = "التعامل مع الجثث المحروقة",
             style = MaterialTheme.typography.headlineLarge
@@ -46,19 +51,22 @@ fun ArticleScreen() {
 
         Spacer(
             modifier = Modifier.height(16.dp)
-
         )
 
-        Text(
-            text = "التعامل مع الحثث المحروقة امر لابد من الاهتمام به" +
-                    "ولذلك كتب هده المقالة حتى يستفيد منها المواطنون ويهتم بها المسؤولون" +
-                    "اقول وبالله بالتوفيق" +
-                    "1 لابد من ببنيبنيتبن" +
-                    "يبيبنيت" +
-                    "يباينبي " +
-                    "يبنيت",
-            style = MaterialTheme.typography.displayMedium
-        )
+        Box(
+            modifier = Modifier.weight(1f)
+        ) {
+            Text(
+                text = "التعامل مع الحثث المحروقة امر لابد من الاهتمام به" +
+                        "ولذلك كتب هده المقالة حتى يستفيد منها المواطنون ويهتم بها المسؤولون" +
+                        "اقول وبالله بالتوفيق" +
+                        "1 لابد من ببنيبنيتبن" +
+                        "يبيبنيت" +
+                        "يباينبي " +
+                        "يبنيت",
+                style = MaterialTheme.typography.displayMedium
+            )
+        }
 
 
     }

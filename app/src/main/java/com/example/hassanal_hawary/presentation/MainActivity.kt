@@ -22,9 +22,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.hassanal_hawary.presentation.article_screen.ArticleScreen
 import com.example.hassanal_hawary.presentation.favorites.FavoriteScreen
 import com.example.hassanal_hawary.presentation.main_screen.BottomMenu
 import com.example.hassanal_hawary.presentation.main_screen.MainScreen
@@ -40,7 +43,7 @@ import com.example.hassanal_hawary.ui.theme.HassanAlHawaryTheme
 import com.google.android.gms.auth.api.identity.Identity
 import kotlinx.coroutines.launch
 
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), NavController.OnDestinationChangedListener {
 
     private val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
@@ -49,8 +52,11 @@ class MainActivity : ComponentActivity() {
         )
     }
 
+    private val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             HassanAlHawaryTheme {
                 // A surface container using the 'background' color from the theme
@@ -59,7 +65,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    val viewModel: MainViewModel by viewModels()
+                    navController.addOnDestinationChangedListener(this)
 
                     Column {
                         Box(
@@ -99,8 +105,12 @@ class MainActivity : ComponentActivity() {
                                                 navController.navigate(
                                                     "profile"
                                                 )
+                                                navController.popBackStack("j", false)
                                                 viewModel.newNavigation("profile")
-                                                Log.d("MainActivity", "onCreate: going to reset ViewModel")
+                                                Log.d(
+                                                    "MainActivity",
+                                                    "onCreate: going to reset ViewModel"
+                                                )
                                                 signInViewModel.resetState()
                                             }
                                         }
@@ -222,9 +232,16 @@ class MainActivity : ComponentActivity() {
                                             programs = programs,
                                             onItemClick = { itemIndex ->
                                                 viewModel.userClickItem(itemIndex)
+                                                navController.navigate("article_screen")
+                                                viewModel.newNavigation("article_screen")
                                             }
                                         )
                                     }
+
+                                    composable("article_screen") {
+                                        ArticleScreen()
+                                    }
+
                                     composable("favorites") {
                                         FavoriteScreen(
                                             modifier = Modifier
@@ -250,6 +267,7 @@ class MainActivity : ComponentActivity() {
                                         0 -> {
                                             navController.navigate("main_screen")
                                         }
+
                                         2 -> {
                                             navController.navigate("favorites")
                                         }
@@ -269,6 +287,14 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onDestinationChanged(
+        controller: NavController,
+        destination: NavDestination,
+        arguments: Bundle?
+    ) {
+        controller.currentDestination?.route?.let { viewModel.newNavigation(it) }
     }
 
 }

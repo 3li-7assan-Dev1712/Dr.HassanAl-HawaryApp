@@ -65,7 +65,9 @@ fun FavoriteArticles(
                         shape = RoundedCornerShape(size = 16.dp)
                     ),
                 contentAlignment = Alignment.Center
-            )
+            ) {
+                
+            }
         }
 
     }

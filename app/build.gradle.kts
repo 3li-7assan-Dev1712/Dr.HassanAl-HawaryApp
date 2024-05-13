@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.example.hassanal_hawary"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.hassanal_hawary"
@@ -66,6 +66,10 @@ dependencies {
     // auth
     implementation("com.google.firebase:firebase-auth-ktx:21.1.0")
     implementation("com.google.android.gms:play-services-auth:20.6.0")
+
+    // firestore
+    implementation("com.google.firebase:firebase-firestore-ktx:25.0.0")
+    
     // navigation
     implementation("androidx.navigation:navigation-compose:$navVersion")
 
