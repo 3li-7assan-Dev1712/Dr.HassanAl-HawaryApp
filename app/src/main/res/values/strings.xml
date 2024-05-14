@@ -4,6 +4,8 @@
     <string name="login">Login</string>
     <string name="enter_email">E-mail</string>
     <string name="name">Name</string>
+    <string name="articles">Articles</string>
+    <string name="read_more">Read more…</string>
     <string name="enter_password">Password</string>
     <string name="register">Register</string>
     <string name="login_question">already have an account?</string>

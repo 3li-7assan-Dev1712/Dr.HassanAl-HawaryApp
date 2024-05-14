@@ -4,6 +4,8 @@
     <string name="login">تسجيل الدخول</string>
     <string name="register">إنشاء حساب</string>
     <string name="name">الإسم</string>
+    <string name="articles">المقالات</string>
+    <string name="read_more">قراءة المزيد…</string>
     <string name="enter_email">البريد الإلكتروني</string>
     <string name="enter_password">كلمة السر</string>
     <string name="login_question">هل لديك حساب بالفعل؟</string>
