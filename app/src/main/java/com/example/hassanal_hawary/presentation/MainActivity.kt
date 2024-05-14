@@ -24,6 +24,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -141,7 +142,15 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                                     "Navigate to register screen",
                                                     Toast.LENGTH_LONG
                                                 ).show()
-                                                navController.navigate("register")
+                                                navController.navigate(
+                                                    route = "register",
+                                                    navOptions = NavOptions.Builder(
+
+                                                    ).setLaunchSingleTop(true)
+                                                        .build()
+
+                                                )
+                                                navController.clearBackStack("sign_in")
                                             },
                                             // here there should be a progress bar
                                             onSignInClick = {
@@ -219,7 +228,14 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
 
                                             },
                                             onRegisterClick = {
-                                                navController.navigate("main_screen")
+//                                                navController.navigate("main_screen")
+                                                navController.navigate(
+                                                    route = "main_screen",
+                                                    navOptions = NavOptions.Builder(
+
+                                                    ).setLaunchSingleTop(true)
+                                                        .build()
+                                                )
                                                 viewModel.newNavigation("main_screen")
                                             }
                                         )

@@ -62,6 +62,7 @@ fun ProfileScreen(
                     )*/
                 if (!userData.userProfilePictureUrl.isNullOrBlank()) {
                     AsyncImage(
+                        modifier = Modifier.fillMaxSize(),
                         model =userData.userProfilePictureUrl,
                         contentDescription = "Profile picture",
                     )
