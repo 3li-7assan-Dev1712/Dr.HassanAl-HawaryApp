@@ -20,8 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.hassanal_hawary.R
-
-
+import com.example.hassanal_hawary.domain.model.Article
 
 
 /*
@@ -29,7 +28,9 @@ In this screen the articles will be  visible so that the user can easily
 navigate from one article to another to read and share them
  */
 @Composable
-fun ArticleScreen() {
+fun ArticleScreen(
+    article: Article
+) {
 
     val articleScreenViewModel = viewModel<ArticleScreenViewModel>()
 
@@ -39,7 +40,7 @@ fun ArticleScreen() {
 
         // title text
         Text(
-            text = "التعامل مع الجثث المحروقة",
+            text = article.title,
             style = MaterialTheme.typography.headlineLarge,
             modifier = Modifier.clickable {
                 articleScreenViewModel.uploadFakeArticle()
@@ -68,13 +69,7 @@ fun ArticleScreen() {
             modifier = Modifier.weight(1f)
         ) {
             Text(
-                text = "التعامل مع الحثث المحروقة امر لابد من الاهتمام به" +
-                        "ولذلك كتب هده المقالة حتى يستفيد منها المواطنون ويهتم بها المسؤولون" +
-                        "اقول وبالله بالتوفيق" +
-                        "1 لابد من ببنيبنيتبن" +
-                        "يبيبنيت" +
-                        "يباينبي " +
-                        "يبنيت",
+                text = article.content,
                 style = MaterialTheme.typography.displayMedium
             )
         }
@@ -87,13 +82,13 @@ fun ArticleScreen() {
 @Composable
 fun ArticleScreenPreview() {
 
-    ArticleScreen()
+    ArticleScreen(Article("Title", "Content"))
 }
 
 @Composable
 fun ImageContainer(
     modifier: Modifier,
-    imageRes: Int
+    imageRes: kotlin.Int
 ) {
     Box(
         modifier = modifier

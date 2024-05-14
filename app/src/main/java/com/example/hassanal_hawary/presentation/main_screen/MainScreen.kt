@@ -64,6 +64,7 @@ fun MainScreen(
                             color = Blue40,
                             shape = RoundedCornerShape(size = 32.dp)
                         ),
+                    gridItemIndex = it,
                     contentAlignment = Alignment.BottomCenter
 
                 ) { itemIndex ->

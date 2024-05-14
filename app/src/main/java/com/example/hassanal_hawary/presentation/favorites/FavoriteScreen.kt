@@ -31,7 +31,7 @@ fun FavoriteScreen(
 fun Articles(
     modifier: Modifier,
     articles: List<Article>,
-    onArticleClick: (Article) -> Unit
+    onArticleClick: (Int) -> Unit
 ) {
 
     LazyColumn(
@@ -57,9 +57,10 @@ fun Articles(
                         color = Blue40,
                         shape = RoundedCornerShape(size = 16.dp)
                     ),
+                gridItemIndex = it,
                 contentAlignment = Alignment.Center
             ) { articleIndex ->
-                onArticleClick(articles[articleIndex])
+                onArticleClick(articleIndex)
             }
         }
 
