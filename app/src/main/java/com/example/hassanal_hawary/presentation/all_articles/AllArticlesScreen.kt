@@ -97,7 +97,7 @@ fun ArticleListItem(
 
         Text(
             text = article.content,
-            fontSize = 15.sp,
+            style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.weight(1f),
             overflow = TextOverflow.Ellipsis
         )

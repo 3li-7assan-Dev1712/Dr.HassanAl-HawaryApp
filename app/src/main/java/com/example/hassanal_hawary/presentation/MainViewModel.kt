@@ -1,5 +1,6 @@
 package com.example.hassanal_hawary.presentation
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -62,8 +63,9 @@ class MainViewModel : ViewModel() {
 
     }
     fun newNavigation(rout: String) {
+        Log.d("MainViewModel", "newNavigation: new navigation rout: $rout")
         when (rout) {
-            "sign_in", "all_articles_screen", "register" -> {
+            "sign_in", "all_articles_screen", "register", "detail_screen/{article_index}" -> {
                 _bottomBarState.value = false
             }
 
