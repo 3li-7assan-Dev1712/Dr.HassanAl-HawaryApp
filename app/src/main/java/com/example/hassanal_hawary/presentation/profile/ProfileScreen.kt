@@ -23,8 +23,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.ImageLoader
 import coil.compose.AsyncImage
+import com.example.hassanal_hawary.domain.model.Article
 import com.example.hassanal_hawary.presentation.sign_in.UserData
 import com.google.android.gms.common.internal.ImagesContract
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 @Composable
 fun ProfileScreen(
@@ -75,7 +78,39 @@ fun ProfileScreen(
             )
         }
         Spacer(modifier = Modifier.weight(1f))
-        
+
+
+        Button(
+            onClick = {
+                val art_1 = Article("Title 1", "Any content")
+                val art_2 = Article("Title 2", "Any content 3iej 3")
+                val art_3 = Article("Title 3", "Any content dkjfd 1245")
+                val art_4 = Article("Title 4", "Any content fdkfj")
+                val art_5 = Article("Title 5", "Any content fjdkfj3")
+                Firebase.firestore.collection("articles")
+                    .add(art_5)
+                Firebase.firestore.collection("articles")
+                    .add(art_4)
+
+                Firebase.firestore.collection("articles")
+                    .add(art_3)
+
+                Firebase.firestore.collection("articles")
+                    .add(art_2)
+
+                Firebase.firestore.collection("articles")
+                    .add(art_1)
+
+
+
+
+            }
+        ) {
+            Text(
+                text = "upload fake data"
+            )
+        }
+
         Button(onClick = {
             onSignOutClick()
         }) {

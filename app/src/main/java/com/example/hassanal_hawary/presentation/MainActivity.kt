@@ -28,6 +28,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.hassanal_hawary.presentation.all_articles.AllArticlesScreen
 import com.example.hassanal_hawary.presentation.article_screen.ArticleScreen
 import com.example.hassanal_hawary.presentation.favorites.FavoriteScreen
 import com.example.hassanal_hawary.presentation.main_screen.BottomMenu
@@ -248,14 +249,20 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                             programs = programs,
                                             onItemClick = { itemIndex ->
                                                 viewModel.userClickItem(itemIndex)
-                                                navController.navigate("article_screen")
-                                                viewModel.newNavigation("article_screen")
+                                                navController.navigate("all_articles_screen")
+                                                viewModel.newNavigation("all_articles_screen")
                                             }
                                         )
                                     }
 
                                     composable("article_screen") {
                                         ArticleScreen()
+                                    }
+                                    composable("all_articles_screen") {
+                                        AllArticlesScreen(
+                                            modifier = Modifier.fillMaxSize(),
+                                            navController = navController
+                                        )
                                     }
 
                                     composable("favorites") {

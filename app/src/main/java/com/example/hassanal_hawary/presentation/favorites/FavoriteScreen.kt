@@ -1,21 +1,14 @@
 package com.example.hassanal_hawary.presentation.favorites
 
-import android.content.Context
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.example.hassanal_hawary.R
 import com.example.hassanal_hawary.domain.model.Article
 import com.example.hassanal_hawary.presentation.main_screen.MainScreenGridItem
 import com.example.hassanal_hawary.ui.theme.Blue40
@@ -25,38 +18,38 @@ fun FavoriteScreen(
     modifier: Modifier
 ) {
 
-    val context = LocalContext.current
-    FavoriteArticles(
+    Articles(
         modifier = Modifier.padding(horizontal = 15.dp),
-        context = context,
-        favoriteArticles = provideFakeArticles()
-    )
+        articles = provideFakeArticles()
+    ) {
+
+    }
 
 }
 
 @Composable
-fun FavoriteArticles(
+fun Articles(
     modifier: Modifier,
-    context: Context,
-    favoriteArticles: List<Article>
+    articles: List<Article>,
+    onArticleClick: (Article) -> Unit
 ) {
 
     LazyColumn(
         modifier = modifier
     ) {
-        item {
+        /*item {
             Text(
                 text = context.getString(R.string.favorite_articles),
                 style = MaterialTheme.typography.headlineLarge
             )
 
             Spacer(modifier = Modifier.height(8.dp))
-        }
+        }*/
         items(
-            count = favoriteArticles.size
+            count = articles.size
         ) {
             MainScreenGridItem(
-                programType = favoriteArticles[it].title,
+                programType = articles[it].title,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 15.dp)
@@ -65,8 +58,8 @@ fun FavoriteArticles(
                         shape = RoundedCornerShape(size = 16.dp)
                     ),
                 contentAlignment = Alignment.Center
-            ) {
-                
+            ) { articleIndex ->
+                onArticleClick(articles[articleIndex])
             }
         }
 

@@ -63,7 +63,7 @@ class MainViewModel : ViewModel() {
     }
     fun newNavigation(rout: String) {
         when (rout) {
-            "sign_in", "article_screen", "register" -> {
+            "sign_in", "all_articles_screen", "register" -> {
                 _bottomBarState.value = false
             }
 
