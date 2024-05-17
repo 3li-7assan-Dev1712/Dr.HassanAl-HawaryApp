@@ -40,6 +40,7 @@ import com.example.hassanal_hawary.presentation.all_articles.AllArticlesViewMode
 import com.example.hassanal_hawary.presentation.all_lectures.AllLecturesScreen
 import com.example.hassanal_hawary.presentation.article_screen.ArticleScreen
 import com.example.hassanal_hawary.presentation.favorites.FavoriteScreen
+import com.example.hassanal_hawary.presentation.lecture_screen.LectureScreen
 import com.example.hassanal_hawary.presentation.main_screen.BottomMenu
 import com.example.hassanal_hawary.presentation.main_screen.MainScreen
 import com.example.hassanal_hawary.presentation.main_screen.menusItems
@@ -258,10 +259,25 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                         )
                                     }
 
+                                    /*navigation(
+                                        startDestination = "lectures",
+                                        navController = navController,
+                                        navArgument()
+                                    ) {
+
+                                    }*/
+
                                     composable("lectures") {
-                                        AllLecturesScreen()
+                                        AllLecturesScreen { lecName ->
+                                            navController.navigate("lecture_screen")
+                                        }
                                     }
 
+                                    composable("lecture_screen") {
+                                        LectureScreen(
+                                            modifier = Modifier.fillMaxSize()
+                                        )
+                                    }
 
                                     navigation(
                                         startDestination = "all_articles_screen",
