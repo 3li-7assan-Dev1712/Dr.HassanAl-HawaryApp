@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hassanal_hawary.R
 import com.example.hassanal_hawary.domain.model.Article
+import com.example.hassanal_hawary.presentation.all_lectures.AllLecturesState
 import com.example.hassanal_hawary.presentation.favorites.Articles
 
 @Composable

@@ -37,6 +37,7 @@ import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.example.hassanal_hawary.presentation.all_articles.AllArticlesScreen
 import com.example.hassanal_hawary.presentation.all_articles.AllArticlesViewModel
+import com.example.hassanal_hawary.presentation.all_lectures.AllLecturesScreen
 import com.example.hassanal_hawary.presentation.article_screen.ArticleScreen
 import com.example.hassanal_hawary.presentation.favorites.FavoriteScreen
 import com.example.hassanal_hawary.presentation.main_screen.BottomMenu
@@ -82,7 +83,7 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                             modifier = Modifier.weight(1f)
                         ) {
                             val navHost =
-                                NavHost(navController, startDestination = "main_screen") {
+                                NavHost(navController, startDestination = "splash_screen") {
 
                                     composable("sign_in") {
                                         val signInViewModel = viewModel<SignInViewModel>()
@@ -113,10 +114,9 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                                 ).show()
                                                 signInViewModel.hideProgressBar()
                                                 navController.navigate(
-                                                    "profile"
+                                                    "lectures"
                                                 )
-                                                navController.popBackStack("j", false)
-                                                viewModel.newNavigation("profile")
+                                                viewModel.newNavigation("lectures")
                                                 Log.d(
                                                     "MainActivity",
                                                     "onCreate: going to reset ViewModel"
@@ -214,17 +214,13 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
 
                                         SplashScreen {
                                             if (googleAuthUiClient.getSignedInUser() != null)
-                                                navController.navigate("profile")
+                                                navController.navigate("lectures")
                                             else
                                                 navController.navigate("sign_in")
                                             // should navigate to the main screen composeable
                                         }
                                     }
 
-                                    /*
-                                    Hey Muhammed this function will display the image
-                                    of Dr. Hassan app
-                                     */
                                     composable("register") {
                                         RegisterScreen(
                                             modifier = Modifier
@@ -237,7 +233,6 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
 
                                             },
                                             onRegisterClick = {
-//                                                navController.navigate("main_screen")
                                                 navController.navigate(
                                                     route = "main_screen",
                                                     navOptions = NavOptions.Builder(
@@ -261,6 +256,10 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                                 viewModel.newNavigation("all_articles_screen")
                                             }
                                         )
+                                    }
+
+                                    composable("lectures") {
+                                        AllLecturesScreen()
                                     }
 
 

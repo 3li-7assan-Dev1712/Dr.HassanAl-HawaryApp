@@ -69,7 +69,8 @@ dependencies {
 
     // firestore
     implementation("com.google.firebase:firebase-firestore-ktx:25.0.0")
-    
+    // firebase storage
+    implementation("com.google.firebase:firebase-storage:21.0.0")
     // navigation
     implementation("androidx.navigation:navigation-compose:$navVersion")
 
