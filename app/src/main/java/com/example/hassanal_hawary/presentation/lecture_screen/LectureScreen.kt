@@ -25,14 +25,18 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun LectureScreen(modifier: Modifier = Modifier) {
+fun LectureScreen(
+
+    modifier: Modifier = Modifier,
+    lectureName: String = ""
+    ) {
 
     val lectureViewModel = viewModel<LectureViewModel>()
     val lectureState by lectureViewModel.lectureState.collectAsState()
 
     LaunchedEffect(key1 = true) {
         Log.d("Ali Hassan", "LectureScreen: call")
-        lectureViewModel.downloadAndPlayAudio("97.mp3")
+        lectureViewModel.downloadAndPlayAudio(lectureName)
     }
 
     Box(

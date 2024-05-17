@@ -269,13 +269,22 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
 
                                     composable("lectures") {
                                         AllLecturesScreen { lecName ->
-                                            navController.navigate("lecture_screen")
+                                            navController.navigate("lecture_screen/$lecName")
                                         }
                                     }
 
-                                    composable("lecture_screen") {
+                                    composable(
+                                        route = "lecture_screen/{lecture_name}",
+                                        arguments = listOf(
+                                            navArgument("lecture_name") {
+                                                type = NavType.StringType
+                                            }
+                                        )
+                                    ) {
+                                        val lectureName = it.arguments?.getString("lecture_name") ?: "97.mp3"
                                         LectureScreen(
-                                            modifier = Modifier.fillMaxSize()
+                                            modifier = Modifier.fillMaxSize(),
+                                            lectureName = lectureName
                                         )
                                     }
 
