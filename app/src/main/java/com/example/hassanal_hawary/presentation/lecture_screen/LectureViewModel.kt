@@ -3,11 +3,13 @@ package com.example.hassanal_hawary.presentation.lecture_screen
 import android.media.MediaPlayer
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import java.io.File
 
 class LectureViewModel : ViewModel() {
@@ -17,6 +19,8 @@ class LectureViewModel : ViewModel() {
     val lectureState = _lectureState.asStateFlow()
 
     val mStorage = Firebase.storage
+
+    private val mPlayer = MediaPlayer()
 
     fun downloadAndPlayAudio(
         audioName: String
@@ -31,11 +35,10 @@ class LectureViewModel : ViewModel() {
 
             }
             .addOnCompleteListener {
-                val mediaPlayer = MediaPlayer()
                 try {
-                    mediaPlayer.setDataSource(localFile.path)
-                    mediaPlayer.prepare()
-                    mediaPlayer.start()
+                    mPlayer.setDataSource(localFile.path)
+                    mPlayer.prepare()
+                    mPlayer.start()
 
                 } catch (e: Exception) {
                     Log.d("AllLectureViewModel", "fetchAllLectures: ${e.message}")
@@ -58,6 +61,25 @@ class LectureViewModel : ViewModel() {
                     )
                 }
             }
+
+
+    }
+
+    fun playPauseClick(play: Boolean) {
+
+        if (play)
+            mPlayer.start()
+        else
+            mPlayer.pause()
+
+
+        viewModelScope.launch {
+
+            _lectureState.update {
+
+                it.copy(play = !play)
+            }
+        }
 
 
     }
