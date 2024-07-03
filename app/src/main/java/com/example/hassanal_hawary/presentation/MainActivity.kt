@@ -214,10 +214,13 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
 
 
                                         SplashScreen {
-                                            if (googleAuthUiClient.getSignedInUser() != null)
-                                                navController.navigate("lectures")
-                                            else
+                                            if (googleAuthUiClient.getSignedInUser() != null) {
+                                                navController.navigate("main_screen")
+                                                viewModel.newNavigation("main_screen")
+                                            } else {
                                                 navController.navigate("sign_in")
+                                                viewModel.newNavigation("sign_in")
+                                            }
                                             // should navigate to the main screen composeable
                                         }
                                     }
@@ -252,9 +255,20 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                             navController = navController,
                                             programs = programs,
                                             onItemClick = { itemIndex ->
-                                                viewModel.userClickItem(itemIndex)
-                                                navController.navigate("all_articles_screen")
-                                                viewModel.newNavigation("all_articles_screen")
+                                                when (itemIndex) {
+                                                    0 -> {
+                                                        viewModel.userClickItem(itemIndex)
+                                                        navController.navigate("all_articles_screen")
+                                                        viewModel.newNavigation("all_articles_screen")
+                                                    }
+
+                                                    1 -> {
+                                                        viewModel.userClickItem(itemIndex)
+                                                        navController.navigate("lectures")
+                                                        viewModel.newNavigation("lectures")
+                                                    }
+                                                }
+
                                             }
                                         )
                                     }
@@ -268,7 +282,9 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                     }*/
 
                                     composable("lectures") {
-                                        AllLecturesScreen { lecName ->
+                                        AllLecturesScreen(
+                                            modifier = Modifier.fillMaxSize()
+                                        ) { lecName ->
                                             navController.navigate("lecture_screen/$lecName")
                                         }
                                     }
@@ -281,7 +297,8 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                             }
                                         )
                                     ) {
-                                        val lectureName = it.arguments?.getString("lecture_name") ?: "97.mp3"
+                                        val lectureName =
+                                            it.arguments?.getString("lecture_name") ?: "97.mp3"
                                         LectureScreen(
                                             modifier = Modifier.fillMaxSize(),
                                             lectureName = lectureName
@@ -289,7 +306,7 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                     }
 
                                     navigation(
-                                        startDestination = "all_articles_screen",
+                                        startDestination = "splash_screen",
                                         route = "articles"
                                     ) {
                                         composable("all_articles_screen") {
@@ -298,7 +315,8 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                                     navController
                                                 )
 
-                                            val allArtsState = viewModel.articlesState.collectAsState()
+                                            val allArtsState =
+                                                viewModel.articlesState.collectAsState()
 
                                             if (allArtsState.value.articles.isEmpty()) {
                                                 viewModel.fetchAllArticles()
@@ -325,14 +343,20 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                             )
 
                                         ) {
-                                            val clickedArticleIndex = it.arguments?.getInt("article_index") ?: 0
-                                            Log.d("0000", "onCreate: rece index is $clickedArticleIndex")
+                                            val clickedArticleIndex =
+                                                it.arguments?.getInt("article_index") ?: 0
+                                            Log.d(
+                                                "0000",
+                                                "onCreate: rece index is $clickedArticleIndex"
+                                            )
                                             val viewModel =
                                                 it.sharedViewModel<AllArticlesViewModel>(
                                                     navController
                                                 )
-                                            val allArtsState = viewModel.articlesState.collectAsState()
-                                            val article = allArtsState.value.articles[clickedArticleIndex]
+                                            val allArtsState =
+                                                viewModel.articlesState.collectAsState()
+                                            val article =
+                                                allArtsState.value.articles[clickedArticleIndex]
                                             ArticleScreen(article)
                                         }
                                     }

@@ -58,7 +58,8 @@ class AllLecturesViewModel : ViewModel() {
 
             
         }.addOnFailureListener {
-            Log.d("LecturesViewModel", "fetchAllLectures: fail")
+
+            Log.d("LecturesViewModel", "fetchAllLectures: fail with msg: ${it.message}")
         }
 
         val localFile = File.createTempFile(

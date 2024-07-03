@@ -16,6 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -64,7 +65,7 @@ fun AllLecturesScreen(
                 LectureItem(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 15.dp),
+                        .padding(vertical = 15.dp, horizontal = 15.dp),
                     lecture = lec
                 ) { lecName ->
                     onLectureClick(lecName)
@@ -76,6 +77,16 @@ fun AllLecturesScreen(
 
 
 }
+
+
+
+/*
+OK I am going to work on my dream
+look at you now while you are typing
+you are typing very good that's because you practiced doing
+that
+ */
+
 
 @Composable
 fun LectureItem(
@@ -90,6 +101,8 @@ fun LectureItem(
 
         Text(
             text = lecture.lectureTitle,
+
+            textAlign = TextAlign.Center,
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier
                 .background(
@@ -100,6 +113,8 @@ fun LectureItem(
                 .clickable {
                     onLectureClick(lecture.lectureTitle)
                 }
+                .padding(32.dp)
+                .fillMaxWidth()
         )
 
     }

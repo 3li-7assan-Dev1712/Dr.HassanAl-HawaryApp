@@ -22,6 +22,8 @@ class LectureViewModel : ViewModel() {
 
     private val mPlayer = MediaPlayer()
 
+//    private val _progress = state
+
     fun downloadAndPlayAudio(
         audioName: String
     ) {
@@ -31,6 +33,7 @@ class LectureViewModel : ViewModel() {
         )
         fileToDownloadRef.getFile(localFile)
             .addOnSuccessListener { task ->
+
                 Log.d("LecturesViewModel", "fetchAllLectures: success $task.bytesTransferred")
 
             }
@@ -39,6 +42,7 @@ class LectureViewModel : ViewModel() {
                     mPlayer.setDataSource(localFile.path)
                     mPlayer.prepare()
                     mPlayer.start()
+                    mPlayer.duration
 
                 } catch (e: Exception) {
                     Log.d("AllLectureViewModel", "fetchAllLectures: ${e.message}")
@@ -82,5 +86,20 @@ class LectureViewModel : ViewModel() {
         }
 
 
+    }
+    fun rollbackClick() {
+        try {
+            mPlayer.seekTo(mPlayer.currentPosition - 15000)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun forwardClick() {
+        try {
+            mPlayer.seekTo(mPlayer.currentPosition + 15000)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }

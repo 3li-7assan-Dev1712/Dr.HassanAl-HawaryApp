@@ -16,6 +16,10 @@ import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
+
+
+    //
+
     private val _stateFlow = MutableStateFlow(0)
     
     val stateFlow = _stateFlow.asStateFlow()
@@ -65,12 +69,12 @@ class MainViewModel : ViewModel() {
     fun newNavigation(rout: String) {
         Log.d("MainViewModel", "newNavigation: new navigation rout: $rout")
         when (rout) {
-            "sign_in", "all_articles_screen", "register", "detail_screen/{article_index}" -> {
-                _bottomBarState.value = false
+            "main_screen", "favorites", "profile" -> {
+                _bottomBarState.value = true
             }
 
             else -> {
-                _bottomBarState.value = true
+                _bottomBarState.value = false
             }
 
         }

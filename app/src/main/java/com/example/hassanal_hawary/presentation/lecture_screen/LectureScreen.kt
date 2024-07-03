@@ -17,12 +17,12 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.ThumbUp
-import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -68,7 +68,7 @@ fun LectureScreen(
     }
 
 
-    if(lectureState.showProgress)
+    if (lectureState.showProgress)
         return
 
     Column(
@@ -93,15 +93,18 @@ fun LectureScreen(
             AudioControllerSection(
                 modifier = Modifier.height(45.dp),
                 onRollbackClick = {
-
-
+                    lectureViewModel.rollbackClick()
                 },
                 onForwardClick = {
-
+                    lectureViewModel.forwardClick()
                 },
                 playPause = lectureState.play,
                 onPlayPauseClick = { play ->
                     lectureViewModel.playPauseClick(play)
+                },
+                sliderPositionValue = lectureState.trackPosition,
+                onSliderValueChange = {
+
                 })
 
         }
@@ -173,10 +176,13 @@ private fun AudioProgressPreview() {
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AudioControllerSection(
     modifier: Modifier = Modifier,
     playPause: Boolean = true,
+    sliderPositionValue: Float = 0.0f,
+    onSliderValueChange: (Float) -> Unit,
     onPlayPauseClick: (Boolean) -> Unit,
     onRollbackClick: () -> Unit,
     onForwardClick: () -> Unit
@@ -187,43 +193,54 @@ fun AudioControllerSection(
         contentAlignment = Alignment.Center
     ) {
 
+        Column {
 
-        Row(
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-
-            Image(
-                imageVector = Icons.Default.ArrowBack,
-                contentDescription = "",
-                modifier = Modifier
-                    .size(48.dp)
-                    .clickable {
-                        onRollbackClick()
-                    }
+            Slider(
+                modifier = Modifier.fillMaxWidth(),
+                value = sliderPositionValue,
+                onValueChange = {
+                    onSliderValueChange(it)
+                }
             )
 
-            Image(
-                imageVector = if (playPause) Icons.Default.PlayArrow else Icons.Default.ThumbUp,
-                contentDescription = "",
-                modifier = Modifier
-                    .size(48.dp)
-                    .clickable {
-                        onPlayPauseClick(playPause)
-                    }
-            )
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
 
-            Image(
-                imageVector = Icons.Default.ArrowForward,
-                contentDescription = "",
-                modifier = Modifier
-                    .size(48.dp)
-                    .clickable {
-                        onForwardClick()
-                    }
-            )
+                Image(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(48.dp)
+                        .clickable {
+                            onRollbackClick()
+                        }
+                )
+
+                Image(
+                    imageVector = if (playPause) Icons.Default.PlayArrow else Icons.Default.ThumbUp,
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(48.dp)
+                        .clickable {
+                            onPlayPauseClick(playPause)
+                        }
+                )
+
+                Image(
+                    imageVector = Icons.Default.ArrowForward,
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(48.dp)
+                        .clickable {
+                            onForwardClick()
+                        }
+                )
 
 
+            }
         }
+
 
     }
 
@@ -246,6 +263,10 @@ private fun AudioControllerPrev() {
         },
         onForwardClick = {
 
+        },
+        sliderPositionValue = 0.0f,
+        onSliderValueChange = {
+            
         }
     )
 
