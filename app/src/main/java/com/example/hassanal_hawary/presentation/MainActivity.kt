@@ -252,7 +252,6 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                     composable("main_screen") {
                                         MainScreen(
                                             modifier = Modifier.fillMaxSize(),
-                                            navController = navController,
                                             programs = programs,
                                             onItemClick = { itemIndex ->
                                                 when (itemIndex) {

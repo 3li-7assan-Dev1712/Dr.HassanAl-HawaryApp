@@ -3,12 +3,14 @@ package com.example.hassanal_hawary.presentation.sign_in
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,11 +18,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
@@ -29,15 +30,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -76,12 +72,52 @@ fun SignInScreen(
         }
     }
 
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(horizontal = 15.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        /*LoginScreenGraphic(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(.3f)
+        )*/
+
+        Spacer(
+            modifier = Modifier.height(15.dp)
+        )
+
+        Text(
+            text = "Welcome you",
+            fontSize = 28.sp,
+            fontWeight = FontWeight.Bold
+        )
+
+        Spacer(
+            modifier = Modifier.height(8.dp)
+        )
+
+        Text(
+            text = "In Dr Hassan App!",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold
+        )
+
+        Spacer(
+            modifier = Modifier.height(30.dp)
+        )
+
+        EmailPasswordSection(
+            email = "",
+            password = "", {
+
+            }) {
+
+        }
+
 
         if (state.showSignInProgressBar) {
             LinearProgressIndicator(
@@ -91,31 +127,10 @@ fun SignInScreen(
             // surfaceVariant
         }
 
-        Spacer(modifier = Modifier.weight(0.5f))
-
-        EmailPasswordSection(
-            email = state.enteredEmail,
-            password = state.enteredPassword,
-            onEmailChange = { enteredEmail ->
-                onEmailChange(enteredEmail)
-            },
-            onPasswordChange = { enteredPassword ->
-                onPasswordChange(enteredPassword)
-            }
-        )
-
-        Spacer(modifier = Modifier.height(32.dp))
-
-        loginRegisterSection(
-            context = context,
-            modifier = Modifier.fillMaxWidth(),
-            isLogin = true
-        ) {
-            onRegisterClick()
-        }
+//        Spacer(modifier = Modifier.height(20.dp))
 
         LoginRegisterProvidersSection(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(.7f),
             context = context,
             isLogin = true,
             onElementClick = {
@@ -123,19 +138,6 @@ fun SignInScreen(
             }
         )
 
-        Button(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(
-                    shape = RectangleShape,
-
-                    ),
-            onClick =
-            {
-                onSignInClick()
-            }) {
-            Text(text = context.getString(R.string.login))
-        }
     }
 }
 
@@ -179,7 +181,7 @@ fun EmailPasswordSection(
     }
 }
 
-@Preview(name = "Sign In Screen", widthDp = 320)
+@Preview(name = "Sign In Screen", widthDp = 320, heightDp = 640)
 @Composable
 fun SignInScreenPreview() {
     SignInScreen(state = SignInState(),
@@ -201,7 +203,7 @@ fun SignInScreenPreview() {
 }
 
 @Composable
-fun loginRegisterSection(
+fun LoginRegisterSection(
     context: Context,
     modifier: Modifier,
     isLogin: Boolean,
@@ -236,6 +238,31 @@ fun loginRegisterSection(
         )
     }
 }
+
+
+@Composable
+fun LoginScreenGraphic(modifier: Modifier = Modifier) {
+
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .background(
+                color = MaterialTheme.colorScheme.primary
+            )
+            .padding(4.dp)
+    )
+}
+
+@Preview(name = "graphic prev", heightDp = 400)
+@Composable
+private fun LoginScreenGraphicComp() {
+    LoginScreenGraphic(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(.25f)
+    )
+}
+
 
 @Composable
 fun LoginRegisterProviders(
@@ -275,11 +302,14 @@ fun LoginRegisterProvidersSection(
             text = if (isLogin) context.getString(R.string.register_using)
             else context.getString(R.string.login_using),
             textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.labelLarge,
             modifier = Modifier.padding(
                 start = 16.dp
             )
 
         )
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         LoginRegisterProviderElements(
             modifier = Modifier.fillMaxWidth(),
@@ -325,18 +355,33 @@ fun ProviderElement(
             .clickable {
                 onElementClick(loginRegisterProviderElement)
             }
-            .size(120.dp)
+            .height(56.dp)
+            .fillMaxWidth()
             .clip(
-                CircleShape
+                RoundedCornerShape(size = 16.dp)
             )
+            .background(color = Color.Black)
     ) {
         Image(
             painter = painterResource(id = imageRes),
             contentDescription = null,
-            modifier = Modifier
+            modifier = Modifier.size(24.dp)
 
         )
     }
 
 
+}
+
+@Preview
+@Composable
+private fun EmailPasswordPrev() {
+
+    EmailPasswordSection(
+        email = "alihassan@gmail.com",
+        password = "Dkfjdkf",
+        {
+
+        }
+    ) { }
 }

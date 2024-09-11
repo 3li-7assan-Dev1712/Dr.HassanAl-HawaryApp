@@ -176,6 +176,10 @@ private fun AudioProgressPreview() {
     )
 }
 
+/*
+THis funiton will display the lecture of doctor hassan al hawary
+to display all of the lecture you will need to have a list view
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AudioControllerSection(

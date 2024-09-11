@@ -11,26 +11,24 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.currentCompositionLocalContext
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.hassanal_hawary.R
 import com.example.hassanal_hawary.common.LoginRegisterProviderElement
 import com.example.hassanal_hawary.presentation.sign_in.EmailPasswordSection
 import com.example.hassanal_hawary.presentation.sign_in.LoginRegisterProvidersSection
-import com.example.hassanal_hawary.presentation.sign_in.loginRegisterSection
+import com.example.hassanal_hawary.presentation.sign_in.LoginRegisterSection
+
 
 /**
- * This function will display the registration screen for taking
- * some data from the user (name + email) and then navigate to the
- * main screen where they can see the videos and audios of the Dr. Hassan
- * Al-Hwary
+ * This function will not be used there are going to be only one
+ * for both login and register using Google play account for users
  */
 @Composable
 fun RegisterScreen(
@@ -54,14 +52,14 @@ fun RegisterScreen(
             password = "",
             onEmailChange = {
 
-        },
+            },
             onPasswordChange = {
 
             })
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        loginRegisterSection(
+        LoginRegisterSection(
             context = context,
             modifier = Modifier.fillMaxWidth(),
             isLogin = false
@@ -108,4 +106,12 @@ fun NameTextField() {
     }
 
     )
+}
+
+@Preview
+@Composable
+private fun RegisterScreenPrev() {
+    RegisterScreen(onLoginClick = { }, onLoginRegisterElementClick = {}) {
+
+    }
 }
