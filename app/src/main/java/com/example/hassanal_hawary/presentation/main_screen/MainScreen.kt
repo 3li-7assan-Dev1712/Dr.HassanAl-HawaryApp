@@ -1,5 +1,6 @@
 package com.example.hassanal_hawary.presentation.main_screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -28,11 +30,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import com.example.hassanal_hawary.R
 import com.example.hassanal_hawary.ui.theme.Blue40
-import kotlinx.coroutines.currentCoroutineContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,17 +60,9 @@ fun MainScreen(
             ) {
                 MainScreenGridItem(
                     programType = program,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(156.dp)
-                        .background(
-                            color = Blue40,
-                            shape = RoundedCornerShape(size = 32.dp)
-                        ),
                     gridItemIndex = it,
-                    contentAlignment = Alignment.BottomCenter
 
-                ) { itemIndex ->
+                    ) { itemIndex ->
                     onItemClick(itemIndex)
                 }
             }
@@ -82,19 +76,52 @@ fun MainScreen(
 @Composable
 fun MainScreenGridItem(
     programType: String,
-    modifier: Modifier,
-    contentAlignment: Alignment,
+    modifier: Modifier = Modifier,
     gridItemIndex: Int = 0,
     onGridItemClick: (Int) -> Unit
 ) {
-    Box(
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
         modifier = modifier
-            .padding(vertical = 30.dp)
+
             .clickable {
                 onGridItemClick(gridItemIndex)
+            }
+            .clip(
+                RoundedCornerShape(16.dp)
+            )
+            .background(MaterialTheme.colorScheme.surface)
+            .fillMaxWidth()
+            .height(156.dp),
+
+        ) {
+
+
+        Image(
+            painter = when (gridItemIndex) {
+                0 -> {
+                    painterResource(R.drawable.article_logo)
+                }
+                1 -> {
+                    painterResource(R.drawable.questions)
+                }
+                2 -> {
+                    painterResource(R.drawable.video)
+                }
+                3 -> {
+                    painterResource(R.drawable.headphones)
+                }
+                else -> {
+                    painterResource(R.drawable.dr_hassan_logo)
+                }
             },
-        contentAlignment = contentAlignment
-    ) {
+            modifier = Modifier.size(90.dp),
+            contentDescription = null,
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         Text(
             text = programType,
             style = MaterialTheme.typography.bodyMedium
@@ -106,15 +133,7 @@ fun MainScreenGridItem(
 @Composable
 fun MainScreenGridItemPreview() {
     MainScreenGridItem(
-        programType = "المقـــــالات",
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(156.dp)
-            .background(
-                color = Blue40,
-                shape = RoundedCornerShape(size = 32.dp)
-            ),
-        contentAlignment = Alignment.BottomCenter
+        programType = "المقـــــالات"
 
     ) {
 
@@ -200,7 +219,7 @@ fun BottomMenuItem(
     }
 }
 
-@Preview(name = "Main Screen",widthDp = 340, heightDp = 640)
+@Preview(name = "Main Screen", widthDp = 340, heightDp = 640)
 @Composable
 private fun MainScreenPrev() {
 
@@ -211,16 +230,16 @@ private fun MainScreenPrev() {
     ) {
 
     }
-    
+
 }
 
-@Preview(name = "Bottom Menu",widthDp = 340, heightDp = 100)
+@Preview(name = "Bottom Menu", widthDp = 340, heightDp = 100)
 @Composable
 private fun BottomMenuPrev() {
-    BottomMenu (
-        modifier= Modifier.fillMaxSize(),
+    BottomMenu(
+        modifier = Modifier.fillMaxSize(),
         menuItems = menusItems
-    ){
+    ) {
 
     }
 }

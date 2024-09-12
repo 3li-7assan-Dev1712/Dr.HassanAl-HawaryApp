@@ -105,7 +105,7 @@ fun FavoriteArticles(
                         shape = RoundedCornerShape(size = 16.dp)
                     ),
                 gridItemIndex = it,
-                contentAlignment = Alignment.Center
+
             ) { articleIndex ->
                 onArticleClick(articleIndex)
             }
