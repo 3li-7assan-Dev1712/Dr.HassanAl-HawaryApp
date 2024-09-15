@@ -21,6 +21,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
@@ -185,6 +186,11 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                             },
                                             onPasswordChange = {
                                                 signInViewModel.passwordChanged(it)
+                                            },
+                                            onLoginBtnClick = {
+                                                Toast.makeText(this@MainActivity,
+                                                    "Login",
+                                                    Toast.LENGTH_LONG).show()
                                             }
                                         )
                                     }

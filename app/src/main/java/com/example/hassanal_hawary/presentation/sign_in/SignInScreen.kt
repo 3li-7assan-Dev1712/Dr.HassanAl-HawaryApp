@@ -17,11 +17,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
@@ -53,7 +53,8 @@ fun SignInScreen(
     onRegisterClick: () -> Unit,
     onLoginRegisterElementClick: (LoginRegisterProviderElement) -> Unit,
     onEmailChange: (String) -> Unit,
-    onPasswordChange: (String) -> Unit
+    onPasswordChange: (String) -> Unit,
+    onLoginBtnClick: () -> Unit
 ) {
 
     /*val emailState = rememberSaveable {
@@ -73,10 +74,12 @@ fun SignInScreen(
     }
 
 
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 15.dp),
+            .padding(horizontal = 15.dp, vertical = 15.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -112,12 +115,44 @@ fun SignInScreen(
 
         EmailPasswordSection(
             email = "",
-            password = "", {
+            password = "",
+            onEmailChange = { email ->
+                onEmailChange(email)
+            },
+            onPasswordChange = { password ->
+                onPasswordChange(password)
+            }
+        )
 
-            }) {
+        Spacer(
+            modifier = Modifier.height(15.dp)
+        )
+
+        LoginRegisterSection(
+            LocalContext.current,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    vertical = 15.dp,
+                ),
+            isLogin = true,
+        ) {
 
         }
 
+        Spacer(Modifier.weight(1f))
+
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+
+            onClick = {
+                onLoginBtnClick()
+            }
+        ) {
+            Text(
+                text = "Login"
+            )
+        }
 
         if (state.showSignInProgressBar) {
             LinearProgressIndicator(
@@ -130,7 +165,7 @@ fun SignInScreen(
 //        Spacer(modifier = Modifier.height(20.dp))
 
         LoginRegisterProvidersSection(
-            modifier = Modifier.weight(.7f),
+            modifier = Modifier,
             context = context,
             isLogin = true,
             onElementClick = {
@@ -199,6 +234,9 @@ fun SignInScreenPreview() {
         },
         onPasswordChange = {
 
+        },
+        onLoginBtnClick = {
+
         })
 }
 
@@ -211,7 +249,9 @@ fun LoginRegisterSection(
 
 ) {
     Row(
-        modifier = modifier, horizontalArrangement = Arrangement.Center
+        modifier = modifier,
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
     ) {
 
         Text(
@@ -312,7 +352,7 @@ fun LoginRegisterProvidersSection(
         Spacer(modifier = Modifier.height(16.dp))
 
         LoginRegisterProviderElements(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.size(56.dp),
             onElementClick = {
                 onElementClick(it)
             })
@@ -326,18 +366,37 @@ fun LoginRegisterProviderElements(
     modifier: Modifier = Modifier,
     onElementClick: (LoginRegisterProviderElement) -> Unit
 ) {
-    Box(
-        modifier = modifier,
-        contentAlignment = Alignment.Center
-    ) {
-        ProviderElement(
-            loginRegisterProviderElement = LoginRegisterProviderElement.GoogleElement,
-            imageRes = com.google.android.gms.base.R.drawable.googleg_standard_color_18,
-            onElementClick = {
-                onElementClick(it)
-            }
-        )
+
+    Row {
+        Box(
+            modifier = modifier,
+            contentAlignment = Alignment.Center
+        ) {
+            ProviderElement(
+                loginRegisterProviderElement = LoginRegisterProviderElement.GoogleElement,
+                imageRes = com.google.android.gms.base.R.drawable.googleg_standard_color_18,
+                onElementClick = {
+                    onElementClick(it)
+                }
+            )
+        }
+
+        Spacer(modifier = Modifier.width(16.dp))
+
+        Box(
+            modifier = modifier,
+            contentAlignment = Alignment.Center
+        ) {
+            ProviderElement(
+                loginRegisterProviderElement = LoginRegisterProviderElement.GoogleElement,
+                imageRes = R.drawable.facebook_icon,
+                onElementClick = {
+                    onElementClick(it)
+                }
+            )
+        }
     }
+
 
 }
 
