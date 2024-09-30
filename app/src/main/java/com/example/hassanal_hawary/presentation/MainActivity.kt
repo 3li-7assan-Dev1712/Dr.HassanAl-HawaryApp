@@ -161,6 +161,7 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                                         .build()
 
                                                 )
+
                                                 navController.clearBackStack("sign_in")
                                             },
                                             // here there should be a progress bar

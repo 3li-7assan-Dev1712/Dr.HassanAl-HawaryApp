@@ -114,8 +114,8 @@ fun SignInScreen(
         )
 
         EmailPasswordSection(
-            email = "",
-            password = "",
+            email = state.enteredEmail,
+            password = state.enteredPassword,
             onEmailChange = { email ->
                 onEmailChange(email)
             },
@@ -136,8 +136,9 @@ fun SignInScreen(
                     vertical = 15.dp,
                 ),
             isLogin = true,
-        ) {
 
+        ) {
+            onRegisterClick()
         }
 
         Spacer(Modifier.weight(1f))
@@ -181,13 +182,20 @@ fun SignInScreen(
 fun EmailPasswordSection(
     email: String,
     password: String,
+    emailError: Boolean = false,
+    passwordError: Boolean = false,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit
+
 ) {
 
 
     Column {
-        OutlinedTextField(value = email, onValueChange = {
+        OutlinedTextField(
+            placeholder = {
+                Text("Enter your email")
+            },
+            value = email, onValueChange = {
             onEmailChange(it)
         }, modifier = Modifier.fillMaxWidth(), singleLine = true, leadingIcon = {
             Icon(
@@ -197,12 +205,18 @@ fun EmailPasswordSection(
             Text(
                 text = LocalContext.current.getString(R.string.enter_email)
             )
-        }
+        },
+            isError = emailError
 
         )
         Spacer(modifier = Modifier.height(32.dp))
 
-        OutlinedTextField(value = password, onValueChange = {
+        OutlinedTextField(
+
+            placeholder = {
+                Text("Enter your email")
+            },
+            value = password, onValueChange = {
             onPasswordChange(it)
         }, modifier = Modifier.fillMaxWidth(), singleLine = true, leadingIcon = {
             Icon(
@@ -212,7 +226,10 @@ fun EmailPasswordSection(
             Text(
                 text = LocalContext.current.getString(R.string.enter_password)
             )
-        })
+        }
+            ,
+            isError = passwordError
+        )
     }
 }
 
@@ -245,6 +262,7 @@ fun LoginRegisterSection(
     context: Context,
     modifier: Modifier,
     isLogin: Boolean,
+
     onLoginRegisterClick: () -> Unit
 
 ) {
@@ -439,7 +457,7 @@ private fun EmailPasswordPrev() {
     EmailPasswordSection(
         email = "alihassan@gmail.com",
         password = "Dkfjdkf",
-        {
+        onEmailChange = {
 
         }
     ) { }

@@ -25,11 +25,18 @@ import com.example.hassanal_hawary.presentation.sign_in.EmailPasswordSection
 import com.example.hassanal_hawary.presentation.sign_in.LoginRegisterProvidersSection
 import com.example.hassanal_hawary.presentation.sign_in.LoginRegisterSection
 
+import androidx.activity.viewModels
+import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.hassanal_hawary.presentation.sign_in.SignInViewModel
 
 /**
  * This function will not be used there are going to be only one
  * for both login and register using Google play account for users
  */
+
+
+
 @Composable
 fun RegisterScreen(
     modifier: Modifier = Modifier,
@@ -38,6 +45,8 @@ fun RegisterScreen(
     onRegisterClick: () -> Unit
 ) {
     val context = LocalContext.current
+    val registerViewModel: RegisterViewModel = viewModel()
+    val signUpState = registerViewModel.signupState.collectAsState()
 
     Column(
         modifier = modifier,
@@ -48,21 +57,25 @@ fun RegisterScreen(
         Spacer(modifier = Modifier.height(32.dp))
 
         EmailPasswordSection(
-            email = "",
-            password = "",
+            email = signUpState.value.email,
+            password = signUpState.value.password,
             onEmailChange = {
 
             },
             onPasswordChange = {
 
-            })
+            },
+            emailError = signUpState.value.emailError,
+            passwordError = signUpState.value.passwordError
+
+        )
 
         Spacer(modifier = Modifier.height(32.dp))
 
         LoginRegisterSection(
             context = context,
             modifier = Modifier.fillMaxWidth(),
-            isLogin = false
+            isLogin = false,
         ) {
             onLoginClick()
         }
@@ -77,7 +90,11 @@ fun RegisterScreen(
         )
 
         Button(onClick = {
-            onRegisterClick()
+//            onRegisterClick()
+            val email = signUpState.value.email
+            val password = signUpState.value.password
+            registerViewModel.register(email, password)
+
         }) {
             Text(text = "Register")
         }
