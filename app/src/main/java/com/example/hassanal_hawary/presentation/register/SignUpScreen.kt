@@ -25,10 +25,8 @@ import com.example.hassanal_hawary.presentation.sign_in.EmailPasswordSection
 import com.example.hassanal_hawary.presentation.sign_in.LoginRegisterProvidersSection
 import com.example.hassanal_hawary.presentation.sign_in.LoginRegisterSection
 
-import androidx.activity.viewModels
 import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.hassanal_hawary.presentation.sign_in.SignInViewModel
 
 /**
  * This function will not be used there are going to be only one
@@ -38,15 +36,15 @@ import com.example.hassanal_hawary.presentation.sign_in.SignInViewModel
 
 
 @Composable
-fun RegisterScreen(
+fun SignUpScreen(
     modifier: Modifier = Modifier,
     onLoginClick: () -> Unit,
     onLoginRegisterElementClick: (LoginRegisterProviderElement) -> Unit,
     onRegisterClick: () -> Unit
 ) {
     val context = LocalContext.current
-    val registerViewModel: RegisterViewModel = viewModel()
-    val signUpState = registerViewModel.signupState.collectAsState()
+    val signUpViewModel: SignUpViewModel = viewModel()
+    val signUpState = signUpViewModel.signupState.collectAsState()
 
     Column(
         modifier = modifier,
@@ -59,11 +57,11 @@ fun RegisterScreen(
         EmailPasswordSection(
             email = signUpState.value.email,
             password = signUpState.value.password,
-            onEmailChange = {
-
+            onEmailChange = { enteredEmail ->
+                signUpViewModel.emailChanged(enteredEmail)
             },
-            onPasswordChange = {
-
+            onPasswordChange = { newPassword ->
+                signUpViewModel.passwordChanged(newPassword)
             },
             emailError = signUpState.value.emailError,
             passwordError = signUpState.value.passwordError
@@ -93,7 +91,7 @@ fun RegisterScreen(
 //            onRegisterClick()
             val email = signUpState.value.email
             val password = signUpState.value.password
-            registerViewModel.register(email, password)
+            signUpViewModel.signUp(email, password)
 
         }) {
             Text(text = "Register")
@@ -128,7 +126,7 @@ fun NameTextField() {
 @Preview
 @Composable
 private fun RegisterScreenPrev() {
-    RegisterScreen(onLoginClick = { }, onLoginRegisterElementClick = {}) {
+    SignUpScreen(onLoginClick = { }, onLoginRegisterElementClick = {}) {
 
     }
 }

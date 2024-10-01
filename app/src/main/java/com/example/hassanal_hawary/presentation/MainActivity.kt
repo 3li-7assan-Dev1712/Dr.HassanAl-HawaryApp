@@ -21,7 +21,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
@@ -47,7 +46,7 @@ import com.example.hassanal_hawary.presentation.main_screen.MainScreen
 import com.example.hassanal_hawary.presentation.main_screen.menusItems
 import com.example.hassanal_hawary.presentation.main_screen.programs
 import com.example.hassanal_hawary.presentation.profile.ProfileScreen
-import com.example.hassanal_hawary.presentation.register.RegisterScreen
+import com.example.hassanal_hawary.presentation.register.SignUpScreen
 import com.example.hassanal_hawary.presentation.sign_in.GoogleAuthUiClient
 import com.example.hassanal_hawary.presentation.sign_in.SignInScreen
 import com.example.hassanal_hawary.presentation.sign_in.SignInViewModel
@@ -233,7 +232,7 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                     }
 
                                     composable("register") {
-                                        RegisterScreen(
+                                        SignUpScreen(
                                             modifier = Modifier
                                                 .fillMaxSize()
                                                 .padding(15.dp),
