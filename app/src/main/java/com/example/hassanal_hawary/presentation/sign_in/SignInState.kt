@@ -7,6 +7,7 @@ data class SignInState(
     val enteredEmail: String = "",
     val enteredPassword: String = "",
     val enterValidEmailMsg: String = "",
-    val enterValidPassowrdMsg: String= ""
+    val enterValidPassowrdMsg: String= "",
+    val navigateTo: String? = null
 
     )

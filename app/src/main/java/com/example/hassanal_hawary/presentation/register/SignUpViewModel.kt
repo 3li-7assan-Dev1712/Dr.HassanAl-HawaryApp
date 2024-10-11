@@ -23,7 +23,7 @@ class SignUpViewModel: ViewModel(
 
     val signupState = _signupState.asStateFlow()
 
-    private lateinit var auth: FirebaseAuth
+    private var auth: FirebaseAuth
 
     init {
 

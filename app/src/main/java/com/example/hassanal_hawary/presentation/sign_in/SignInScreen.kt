@@ -30,6 +30,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,6 +44,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.hassanal_hawary.R
 import com.example.hassanal_hawary.common.LoginRegisterProviderElement
 
@@ -54,7 +57,8 @@ fun SignInScreen(
     onLoginRegisterElementClick: (LoginRegisterProviderElement) -> Unit,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
-    onLoginBtnClick: () -> Unit
+    onLoginBtnClick: () -> Unit,
+    onNavigateTo: (String) -> Unit
 ) {
 
     /*val emailState = rememberSaveable {
@@ -72,8 +76,14 @@ fun SignInScreen(
             ).show()
         }
     }
+    LaunchedEffect(key1 = state.navigateTo) {
+        state.navigateTo?.let { destination ->
+           onNavigateTo(destination)
+        }
+    }
 
-
+    val signInViewModel: SignInViewModel = viewModel()
+    val signInState by signInViewModel.state.collectAsState()
 
 
     Column(
@@ -114,13 +124,15 @@ fun SignInScreen(
         )
 
         EmailPasswordSection(
-            email = state.enteredEmail,
-            password = state.enteredPassword,
+            email = signInState.enteredEmail,
+            password = signInState.enteredPassword,
             onEmailChange = { email ->
-                onEmailChange(email)
+//                onEmailChange(email)
+                signInViewModel.emailChanged(email)
             },
             onPasswordChange = { password ->
-                onPasswordChange(password)
+//                onPasswordChange(password)
+                signInViewModel.passwordChanged(password)
             }
         )
 
@@ -147,7 +159,11 @@ fun SignInScreen(
             modifier = Modifier.fillMaxWidth(),
 
             onClick = {
-                onLoginBtnClick()
+//                onLoginBtnClick()
+                signInViewModel.signInWithEmailAndPassword(
+                    state.enteredEmail,
+                    state.enteredPassword
+                )
             }
         ) {
             Text(
@@ -253,6 +269,9 @@ fun SignInScreenPreview() {
 
         },
         onLoginBtnClick = {
+
+        },
+        onNavigateTo = {
 
         })
 }

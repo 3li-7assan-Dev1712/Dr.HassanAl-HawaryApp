@@ -191,6 +191,9 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                                 Toast.makeText(this@MainActivity,
                                                     "Login",
                                                     Toast.LENGTH_LONG).show()
+                                            },
+                                            onNavigateTo = { route ->
+                                                navController.navigate(route)
                                             }
                                         )
                                     }
@@ -216,9 +219,18 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                              if (googleAuthUiClient.getSignedInUser() != null) {
                                                  navController.navigate("profile")
                                              }
-                                         }*/
+           fl7nbbbbbbbbbbbbbbbjkjdkfjdkjflaj;aj;lkjasdfalifgffgg                              }*/
 
 
+                                        /*
+                                           this is a function to build a native app development
+                                           in order to build such an app you need to learn a lot
+                                           of new courses so what do your thick about
+                                           doing that
+                                           I am really happy about the new keyboard
+                                           so in the upp coming days I will be building new
+                                           apps this keyboard is so1        
+                                         */
                                         SplashScreen {
                                             if (googleAuthUiClient.getSignedInUser() != null) {
                                                 navController.navigate("main_screen")
