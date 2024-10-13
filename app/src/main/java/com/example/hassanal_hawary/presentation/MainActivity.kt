@@ -29,11 +29,13 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
+import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import androidx.navigation.navOptions
 import androidx.navigation.navigation
 import com.example.hassanal_hawary.presentation.all_articles.AllArticlesScreen
 import com.example.hassanal_hawary.presentation.all_articles.AllArticlesViewModel
@@ -125,24 +127,7 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                                 signInViewModel.resetState()
                                             }
                                         }
-                                        LaunchedEffect(key1 = state.enterValidEmailMsg) {
-                                            if (state.enterValidEmailMsg.isBlank()) return@LaunchedEffect
-                                            Toast.makeText(
-                                                applicationContext,
-                                                state.enterValidEmailMsg,
-                                                Toast.LENGTH_LONG
-                                            ).show()
 
-
-                                        }
-                                        LaunchedEffect(key1 = state.enterValidPassowrdMsg) {
-                                            if (state.enterValidPassowrdMsg.isBlank()) return@LaunchedEffect
-                                            Toast.makeText(
-                                                applicationContext,
-                                                state.enterValidPassowrdMsg,
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                        }
 
                                         SignInScreen(
                                             state = state,
@@ -163,12 +148,6 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
 
                                                 navController.clearBackStack("sign_in")
                                             },
-                                            // here there should be a progress bar
-                                            onSignInClick = {
-                                                // show progress bar
-
-                                                signInViewModel.userClickSignInBtn()
-                                            },
                                             onLoginRegisterElementClick = {
                                                 signInViewModel.showProgressBar()
                                                 lifecycleScope.launch {
@@ -181,19 +160,15 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                                     )
                                                 }
                                             },
-                                            onEmailChange = {
-                                                signInViewModel.emailChanged(it)
-                                            },
-                                            onPasswordChange = {
-                                                signInViewModel.passwordChanged(it)
-                                            },
-                                            onLoginBtnClick = {
-                                                Toast.makeText(this@MainActivity,
-                                                    "Login",
-                                                    Toast.LENGTH_LONG).show()
-                                            },
-                                            onNavigateTo = { route ->
-                                                navController.navigate(route)
+                                            onNavigateTo = { r ->
+                                                navController.navigate(
+                                                    route = r,
+                                                    navOptions = NavOptions.Builder()
+                                                        .setLaunchSingleTop(true)
+                                                        .setPopUpTo(r, false)
+                                                        .build()
+                                                )
+//                                                navController.clearBackStack(route = r)
                                             }
                                         )
                                     }

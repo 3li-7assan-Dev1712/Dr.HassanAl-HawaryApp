@@ -52,12 +52,8 @@ import com.example.hassanal_hawary.common.LoginRegisterProviderElement
 @Composable
 fun SignInScreen(
     state: SignInState,
-    onSignInClick: () -> Unit,
     onRegisterClick: () -> Unit,
     onLoginRegisterElementClick: (LoginRegisterProviderElement) -> Unit,
-    onEmailChange: (String) -> Unit,
-    onPasswordChange: (String) -> Unit,
-    onLoginBtnClick: () -> Unit,
     onNavigateTo: (String) -> Unit
 ) {
 
@@ -81,6 +77,8 @@ fun SignInScreen(
            onNavigateTo(destination)
         }
     }
+
+
 
     val signInViewModel: SignInViewModel = viewModel()
     val signInState by signInViewModel.state.collectAsState()
@@ -122,6 +120,9 @@ fun SignInScreen(
         Spacer(
             modifier = Modifier.height(30.dp)
         )
+
+
+
 
         EmailPasswordSection(
             email = signInState.enteredEmail,
@@ -256,19 +257,7 @@ fun SignInScreenPreview() {
         onRegisterClick = {
 
         },
-        onSignInClick = {
-
-        },
         onLoginRegisterElementClick = {
-
-        },
-        onEmailChange = {
-
-        },
-        onPasswordChange = {
-
-        },
-        onLoginBtnClick = {
 
         },
         onNavigateTo = {

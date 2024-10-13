@@ -107,13 +107,16 @@ class SignInViewModel(): ViewModel()
         if (email.isEmpty()) {
             _state.update {
                 it.copy(
-                    enterValidEmailMsg = "enter valid email!"
+                    enterValidEmailMsg = "enter valid email!",
+                    showSignInProgressBar = false
+
                 )
             }
         } else if (password.isEmpty()) {
             _state.update {
                 it.copy(
-                    enterValidPassowrdMsg = "enter valid password!"
+                    enterValidPassowrdMsg = "enter valid password!",
+                    showSignInProgressBar = false
                 )
             }
         } else {
@@ -124,6 +127,11 @@ class SignInViewModel(): ViewModel()
             I'm really excited about that *_*
              */
 
+            _state.update {
+                it.copy(
+                    showSignInProgressBar = true
+                )
+            }
             auth.signInWithEmailAndPassword(
                 email,
                 password
