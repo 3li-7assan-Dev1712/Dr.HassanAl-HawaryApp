@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.hassanal_hawary.R
@@ -123,7 +124,13 @@ fun MainScreenGridItem(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = programType,
+            text = when(gridItemIndex) {
+                0 -> stringResource(R.string.articles)
+                1 -> stringResource(R.string.questions)
+                2 -> stringResource(R.string.videos)
+                3 -> stringResource(R.string.lectures)
+                4 -> stringResource(R.string.summary)
+                else -> "" },
             style = MaterialTheme.typography.bodyMedium
         )
     }

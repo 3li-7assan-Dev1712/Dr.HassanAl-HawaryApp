@@ -14,4 +14,8 @@
     <string name="login_using">تسجيل الدخول بواسطة…</string>
     <string name="favorite_articles">المقالات المفضلة</string>
     <string name="favorite_lectures">المحاضرات المفضلة</string>
+    <string name="questions">الاسئلة</string>
+    <string name="videos">الفيديوهات</string>
+    <string name="lectures">المحاضرات الصوتية</string>
+    <string name="summary">نبذة عن الشيخ</string>
 </resources>
