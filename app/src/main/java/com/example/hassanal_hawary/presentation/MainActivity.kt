@@ -181,7 +181,18 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                                         "Sign out",
                                                         Toast.LENGTH_LONG
                                                     ).show()
-                                                    navController.popBackStack()
+                                                    navController.navigate(
+
+                                                        route = "sign_in",
+
+                                                        navOptions = NavOptions.Builder(
+
+                                                        ).setLaunchSingleTop(true)
+                                                            .setPopUpTo("sign_in", inclusive = true)
+                                                            .build()
+
+                                                    )
+
                                                 }
 
                                             }
