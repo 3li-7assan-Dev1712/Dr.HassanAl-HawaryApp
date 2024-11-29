@@ -53,6 +53,12 @@ class SignUpViewModel: ViewModel(
             I'm really excited about that *_*
              */
 
+            // firstly show progression
+            _signupState.update {
+                it.copy(
+                    showProgress = true
+                )
+            }
             auth.createUserWithEmailAndPassword(
                 email,
                 password
@@ -67,7 +73,8 @@ class SignUpViewModel: ViewModel(
                         // now navigate to the main screen
                         _signupState.update {
                             it.copy(
-                                navigateToRoute = "main_screen"
+                                navigateToRoute = "main_screen",
+                                showProgress = false
                             )
                         }
                     }
