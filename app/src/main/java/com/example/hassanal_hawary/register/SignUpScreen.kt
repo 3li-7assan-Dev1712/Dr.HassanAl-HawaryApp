@@ -1,5 +1,6 @@
 package com.example.hassanal_hawary.register
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +13,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -40,7 +42,7 @@ fun SignUpScreen(
     modifier: Modifier = Modifier,
     onLoginClick: () -> Unit,
     onLoginRegisterElementClick: (LoginRegisterProviderElement) -> Unit,
-    onRegisterClick: () -> Unit
+    onNavigateToRoute: (String) -> Unit
 ) {
     val context = LocalContext.current
     val signUpViewModel: SignUpViewModel = viewModel()
@@ -97,6 +99,13 @@ fun SignUpScreen(
             Text(text = "Register")
         }
 
+        LaunchedEffect(signUpState.value.navigateToRoute) {
+            val route = signUpViewModel.signupState.value.navigateToRoute
+            Log.d("SignUpScreen", "SignUpScreen: Navigation")
+            if (route != null) {
+                onNavigateToRoute(route)
+            }
+        }
 
     }
 
@@ -126,7 +135,7 @@ fun NameTextField() {
 @Preview
 @Composable
 private fun RegisterScreenPrev() {
-    SignUpScreen(onLoginClick = { }, onLoginRegisterElementClick = {}) {
+    SignUpScreen(onLoginClick = { }, onLoginRegisterElementClick = {}, onNavigateToRoute = {
 
-    }
+    })
 }

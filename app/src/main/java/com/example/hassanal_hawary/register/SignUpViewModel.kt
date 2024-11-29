@@ -64,10 +64,16 @@ class SignUpViewModel: ViewModel(
                         Log.d("SignUpViewModel: ", "signUp: Created the user successfully" +
                                 "user email: ${user.email} \n" +
                                 "user id: ${user.uid}")
+                        // now navigate to the main screen
+                        _signupState.update {
+                            it.copy(
+                                navigateToRoute = "main_screen"
+                            )
+                        }
                     }
                 }
             }.addOnFailureListener{
-                Log.d("SignUpViewModel", "signUp: faild with msg: ${it.message}")
+                Log.d("SignUpViewModel", "signUp: failed with msg: ${it.message}")
             }
 
 

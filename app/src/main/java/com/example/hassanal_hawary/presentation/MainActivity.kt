@@ -227,15 +227,16 @@ class MainActivity : ComponentActivity(), NavController.OnDestinationChangedList
                                             onLoginRegisterElementClick = {
 
                                             },
-                                            onRegisterClick = {
+
+                                            onNavigateToRoute = { route ->
                                                 navController.navigate(
-                                                    route = "main_screen",
+                                                    route = route,
                                                     navOptions = NavOptions.Builder(
 
                                                     ).setLaunchSingleTop(true)
                                                         .build()
                                                 )
-                                                viewModel.newNavigation("main_screen")
+                                                viewModel.newNavigation(route)
                                             }
                                         )
                                     }
