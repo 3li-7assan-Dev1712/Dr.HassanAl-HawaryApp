@@ -113,11 +113,12 @@ fun MainScreenGridItem(
                 3 -> {
                     painterResource(R.drawable.headphones)
                 }
+
                 else -> {
                     painterResource(R.drawable.dr_hassan_logo)
                 }
             },
-            modifier = Modifier.size(90.dp),
+            modifier = Modifier.size(45.dp),
             contentDescription = null,
         )
 
@@ -148,83 +149,6 @@ fun MainScreenGridItemPreview() {
 }
 
 
-@Composable
-fun BottomMenu(
-    modifier: Modifier = Modifier,
-    menuItems: List<MenuItem> = listOf(),
-    initialSelectedItemIndex: Int = 0,
-    onItemClick: (Int) -> Unit
-) {
-
-    var currentSelectedItem by rememberSaveable {
-        mutableStateOf(initialSelectedItemIndex)
-    }
-
-    Row(
-        modifier = modifier
-
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceAround
-    ) {
-        menuItems.forEachIndexed { index, item ->
-            BottomMenuItem(
-                menuItem = item,
-                isSelected = currentSelectedItem == index,
-                onMenuSelected = {
-                    currentSelectedItem = index
-                    onItemClick(index)
-                }
-            )
-        }
-    }
-
-}
-
-
-@Composable
-fun BottomMenuItem(
-    menuItem: MenuItem,
-    isSelected: Boolean,
-    onMenuSelected: () -> Unit
-) {
-
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier.clickable {
-            onMenuSelected()
-        }
-
-    ) {
-
-        /*
-        This is an active online editor to build this app
-         */
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .clip(RoundedCornerShape(10.dp))
-                .background(if (isSelected) Blue40 else Color.Transparent)
-                .padding(10.dp)
-        ) {
-            Icon(
-                imageVector = menuItem.ImageVect,
-                contentDescription = menuItem.title,
-                modifier = Modifier.size(20.dp)
-
-            )
-        }
-
-        Text(
-            text = menuItem.title,
-            style = MaterialTheme.typography.bodyMedium
-        )
-
-    }
-}
 
 @Preview(name = "Main Screen", widthDp = 340, heightDp = 640)
 @Composable
@@ -238,15 +162,4 @@ private fun MainScreenPrev() {
 
     }
 
-}
-
-@Preview(name = "Bottom Menu", widthDp = 340, heightDp = 100)
-@Composable
-private fun BottomMenuPrev() {
-    BottomMenu(
-        modifier = Modifier.fillMaxSize(),
-        menuItems = menusItems
-    ) {
-
-    }
 }

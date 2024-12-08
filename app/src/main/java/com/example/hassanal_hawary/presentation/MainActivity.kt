@@ -41,7 +41,7 @@ import com.example.hassanal_hawary.audios_list.AllLecturesScreen
 import com.example.hassanal_hawary.article_detail.ArticleScreen
 import com.example.hassanal_hawary.favorites.FavoriteScreen
 import com.example.hassanal_hawary.audio_detail.LectureScreen
-import com.example.hassanal_hawary.mainscreen.BottomMenu
+import com.example.hassanal_hawary.core.presentation.BottomMenu
 import com.example.hassanal_hawary.mainscreen.MainScreen
 import com.example.hassanal_hawary.mainscreen.menusItems
 import com.example.hassanal_hawary.mainscreen.programs

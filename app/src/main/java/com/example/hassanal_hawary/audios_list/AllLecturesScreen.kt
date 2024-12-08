@@ -53,7 +53,7 @@ fun AllLecturesScreen(
         Text(
             text = state.value.errorMessage!!,
             fontSize = 33.sp,
-
+ 
         )
     }
 

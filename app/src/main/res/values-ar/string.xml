@@ -18,4 +18,7 @@
     <string name="videos">الفيديوهات</string>
     <string name="lectures">المحاضرات الصوتية</string>
     <string name="summary">نبذة عن الشيخ</string>
+    <string name="main_screen">الشاشة الرئيسية</string>
+    <string name="favorites">المفضلة</string>
+    <string name="profile">الملف الشخصي</string>
 </resources>

@@ -19,4 +19,7 @@
     <string name="videos">Videos</string>
     <string name="lectures">Lectures</string>
     <string name="summary">Summary</string>
+    <string name="main_screen">Main screen</string>
+    <string name="favorites">Favorites</string>
+    <string name="profile">Profile</string>
 </resources>
