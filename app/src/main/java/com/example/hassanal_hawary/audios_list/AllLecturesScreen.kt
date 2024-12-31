@@ -45,6 +45,9 @@ fun AllLecturesScreen(
             contentAlignment = Alignment.Center
         ) {
 
+            /*
+            it's time to get to sleep
+             */
             CircularProgressIndicator()
         }
     }
